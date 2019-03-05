@@ -20,15 +20,19 @@ public:
 	WordList()
 	{
 		m_iListSize = new int[MAX_SIZE + 1];
+		m_iListGetPoint = new int[MAX_SIZE + 1];
 		for (int i = 0; i < MAX_SIZE + 1; i++)
 		{
 			m_iListSize[i] = 0;
+			m_iListGetPoint[i] = 0;
 		}
 	}
 	~WordList()
 	{
 		delete m_iListSize;
+		delete m_iListGetPoint;
 		m_iListSize = NULL;
+		m_iListGetPoint = NULL;
 	}
 
 	/*
@@ -52,11 +56,27 @@ public:
 		输出：
 			若存在符合首尾条件的单词，返回最长的单词；
 			若不存在，返回NULL。
-		效果：
+		注意：
+			连续获取时会按照长度由长至短的顺序返回单词。
 			
 	*/
 	string getWordAt(char _c1, char _c2);
 
+
+	/*
+		方法：
+			撤销单词获取操作。
+		输入：
+			_c1：首字母；
+			_c2：尾字母；
+		输出：
+			无
+		效果：
+			撤销符合首尾条件的单词前一次获取操作。
+		注意：
+			回溯时调用，可以撤销一次获取操作。
+	*/
+	void undoGetWordAt(char _c1, char _c2);
 
 
 	/*
@@ -73,6 +93,7 @@ private:
 	const int MAX_SIZE = 676;
 	int *m_iListSize;
 	vector<string> m_list[677];
+	int *m_iListGetPoint;
 	void addWord(const string &_word);
 };
 
