@@ -76,7 +76,7 @@ string WordList::getWordAt(char _c1, char _c2)
 		return NULL;
 	}
 	string t_strWord(m_list[t_iIndex][0]);
-	m_list[t_iIndex].erase(m_list[t_iIndex].begin());
+	//m_list[t_iIndex].erase(m_list[t_iIndex].begin());
 	return t_strWord;
 }
 
