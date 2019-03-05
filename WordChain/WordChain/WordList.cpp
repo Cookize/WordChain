@@ -13,7 +13,7 @@ bool isAlph(const char _c)
 
 void toLower(string &_str)
 {
-	int length = _str.length();
+	size_t length(_str.length());
 	for (int i = 0; i < length; i++)
 	{
 		if (_str[i] >= 'A' && _str[i] <= 'Z')
@@ -27,7 +27,7 @@ void WordList::addWord(const string &_word)
 {
 	string t_strNewWord(_word);
 	toLower(t_strNewWord);
-	int t_iWordLength(t_strNewWord.length());
+	size_t t_iWordLength(t_strNewWord.length());
 	int t_iIndex((t_strNewWord[0] - 'a') * 26 + t_strNewWord[t_iWordLength - 1] - 'a');
 	for (int i = 0; i < m_iListSize[t_iIndex]; i++)
 	{
@@ -48,7 +48,7 @@ void WordList::addWord(const string &_word)
 
 void WordList::parseString(const string &_str)
 {
-	int t_iStrLength = _str.length();
+	size_t t_iStrLength(_str.length());
 	int i, j;
 	for (i = j = 0; i <= t_iStrLength; i++)
 	{
@@ -71,13 +71,27 @@ string WordList::getWordAt(char _c1, char _c2)
 	{
 		return NULL;
 	}
-	if (m_iListSize[t_iIndex] <= 0)
+	if (m_iListSize[t_iIndex] <= 0 || m_iListGetPoint[t_iIndex] >= m_iListSize[t_iIndex])
 	{
 		return NULL;
 	}
-	string t_strWord(m_list[t_iIndex][0]);
-	m_list[t_iIndex].erase(m_list[t_iIndex].begin());
+	string t_strWord(m_list[t_iIndex][m_iListGetPoint[t_iIndex]]);
+	m_iListGetPoint[t_iIndex]++;
 	return t_strWord;
+}
+
+void WordList::undoGetWordAt(char _c1, char _c2)
+{
+	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
+	if (t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	{
+		return;
+	}
+	if (m_iListGetPoint[t_iIndex] > 0)
+	{
+		m_iListGetPoint[t_iIndex]--;
+	}
+	return;
 }
 
 // test
