@@ -1,12 +1,9 @@
-﻿Algebra
-Apple
-aba
-Zoo
-Elephant
-Under
-Fox
-Dog
-Moon
-Leaf
-Trick
-Pseudopseudohypoparathyroidism
+﻿﻿By using Eqn. (18), we are allowed to express the transition
+probability on the undirected graph. We will show the power
+of this expression in the following section.
+Reviewing Fig. 9, Conditional dependencies between vari-
+ables representing different users at the same time slice can be
+expressed in the form of pairwise relationship as depicted in
+Eqn. (6). The edge across different time slices is formulated
+as the pairwise potential function Eqn. (18). The figure shows
+an example with time window being 3.

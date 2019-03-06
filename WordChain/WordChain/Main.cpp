@@ -34,7 +34,6 @@ int main(int argc, char** argv)
 	}
 	Solve *solve = new Solve('w');
 	solve->Solve1(*WORDLIST,true);
-	char c = getchar();
 	delete	solve;
 	delete WORDLIST;
 	WORDLIST = NULL;

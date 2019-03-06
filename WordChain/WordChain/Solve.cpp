@@ -40,6 +40,7 @@ void Solve::cmp()
 }
 void Solve::Dfs_solve1(WordList& wordlist, char c)
 {
+	if (is_circle == 1) return;
 	int i;
 	for (i = 0; i < 26; i++)
 	{
@@ -55,11 +56,14 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 			if (!m_ModeRing && m_ihead[i] == 1 && ((c - 'a') != i || ((c-'a') == i && m_iSigned[i][i] == 1)))
 			{
 				is_circle = 1;
+				return;
 			}
 			m_iSigned[c - 'a'][i] = 1;
 			m_TempChain.push_back(next_word);
 			m_TemLen += l1;	
+			m_ihead[i] = 1;
 			Dfs_solve1(wordlist, 'a' + i);
+			m_ihead[i] = 0;
 			m_TemLen -= l1;
 			m_TempChain.pop_back();
 			wordlist.undoGetWordAt(c, 'a' + i);
