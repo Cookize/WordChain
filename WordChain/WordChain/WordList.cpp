@@ -14,7 +14,7 @@ bool isAlph(const char _c)
 void toLower(string &_str)
 {
 	size_t length(_str.length());
-	for (int i = 0; i < length; i++)
+	for (unsigned int i = 0; i < length; i++)
 	{
 		if (_str[i] >= 'A' && _str[i] <= 'Z')
 		{
@@ -49,7 +49,7 @@ void WordList::addWord(const string &_word)
 void WordList::parseString(const string &_str)
 {
 	size_t t_iStrLength(_str.length());
-	int i, j;
+	unsigned int i, j;
 	for (i = j = 0; i <= t_iStrLength; i++)
 	{
 		if (i == t_iStrLength || !isAlph(_str[i]))
