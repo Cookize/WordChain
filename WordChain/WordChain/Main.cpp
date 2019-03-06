@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Main.h"
 #include "WordList.h"
+#include "Solve.h"
 
 using namespace std;
 
@@ -31,6 +32,10 @@ int main(int argc, char** argv)
 	{
 		WORDLIST->showAllWord();
 	}
+	Solve *solve = new Solve('w');
+	solve->Solve1(*WORDLIST,true);
+	char c = getchar();
+	delete	solve;
 	delete WORDLIST;
 	WORDLIST = NULL;
 	return 0;
