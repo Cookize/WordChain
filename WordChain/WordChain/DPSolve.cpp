@@ -13,6 +13,7 @@ int DPSolve::DPStep(WordList &wordList, int indexH)
 	}
 	bool t_boolHaveNew = false;						// 标记是否有新单词加入
 	bool t_boolSelf = false;						// 标记是否有同首尾单词
+	m_iHead[indexH] = 1;							// 更新标记
 	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
 	{
 		int t_iRemaining = wordList.getWordRemainingAt('a' + indexH, 'a' + indexT);
@@ -29,7 +30,6 @@ int DPSolve::DPStep(WordList &wordList, int indexH)
 				return -1;
 			}
 			int temp = 1;
-			m_iHead[indexT] = 1;					// 更新标记
 			temp += DPStep(wordList, indexT);
 			if (m_iArrayDp[indexH] < temp)			// 比较是否为最长
 			{
@@ -38,7 +38,7 @@ int DPSolve::DPStep(WordList &wordList, int indexH)
 					m_TempChain.pop_back();
 				}
 				m_iArrayDp[indexH] = temp;
-				m_TempChain.push_back(wordList.getWordAt(indexH + 'a', indexT + 'a', false));
+				m_TempChain.push_back(wordList.getWordAt(indexH + 'a', indexT + 'a', true));
 				t_boolHaveNew = true;
 			}
 		}
@@ -46,7 +46,7 @@ int DPSolve::DPStep(WordList &wordList, int indexH)
 	if (t_boolSelf)
 	{
 		m_iArrayDp[indexH]++;
-		m_TempChain.push_back(wordList.getWordAt(indexH + 'a', indexH + 'a', false));
+		m_TempChain.push_back(wordList.getWordAt(indexH + 'a', indexH + 'a', true));
 	}
 	return m_iArrayDp[indexH] >= 0 ? m_iArrayDp[indexH] : 0;
 }
