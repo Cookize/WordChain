@@ -94,6 +94,26 @@ void WordList::undoGetWordAt(char _c1, char _c2)
 	return;
 }
 
+int WordList::getWordSumAt(char _c1, char _c2)
+{
+	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
+	if(t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	{
+		return 0;
+	}
+	return m_iListSize[t_iIndex];
+}
+
+int WordList::getWordRemainingAt(char _c1, char _c2)
+{
+	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
+	if (t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	{
+		return 0;
+	}
+	return m_iListSize[t_iIndex] - m_iListGetPoint[t_iIndex];
+}
+
 // test
 void WordList::showAllWord()
 {

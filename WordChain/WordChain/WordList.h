@@ -62,6 +62,29 @@ public:
 	*/
 	string getWordAt(char _c1, char _c2);
 
+	/*
+		方法：
+			获取符合首尾条件的单词“总”数量。
+		输入：
+			_c1：首字母；
+			_c2：尾字母；
+		输出：
+			符合首尾条件的单词总数量。
+
+	*/
+	int getWordSumAt(char _c1, char _c2);
+
+	/*
+		方法：
+			获取符合首尾条件的单词“剩余”数量。
+		输入：
+			_c1：首字母；
+			_c2：尾字母；
+		输出：
+			符合首尾条件的单词剩余数量。
+
+	*/
+	int getWordRemainingAt(char _c1, char _c2);
 
 	/*
 		方法：
