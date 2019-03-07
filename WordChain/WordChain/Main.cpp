@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 		WORDLIST->showAllWord();
 	}
 	Solve *solve = new Solve('w');
-	solve->Solve1(*WORDLIST,true);
+	solve->Solve1(*WORDLIST,false);
 	delete	solve;
 	delete WORDLIST;
 	WORDLIST = NULL;
