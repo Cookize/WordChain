@@ -3,6 +3,7 @@
 #include "Main.h"
 #include "WordList.h"
 #include "DPSolve.h"
+#include "Solve.h"
 
 using namespace std;
 
@@ -32,12 +33,16 @@ int main(int argc, char** argv)
 	{
 		WORDLIST->showAllWord();
 	}
-
+	cout << "Load Finished." << endl;
+	cout << "Start Calculate" << endl;
 	DPSolve *dpSolve = new DPSolve('w');
 	dpSolve->startDPSolve(*WORDLIST);
 
 	delete dpSolve;
 	dpSolve = NULL;
+	//Solve *solve = new Solve('w');
+	//solve->Solve1(*WORDLIST, false);
+	//delete solve;
 	delete WORDLIST;
 	WORDLIST = NULL;
 	return 0;
