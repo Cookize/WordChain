@@ -64,7 +64,7 @@ void WordList::parseString(const string &_str)
 	}
 }
 
-string WordList::getWordAt(char _c1, char _c2)
+string WordList::getWordAt(char _c1, char _c2, bool _ifDelete)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
 	if (t_iIndex < 0 || t_iIndex > MAX_SIZE)
@@ -76,8 +76,16 @@ string WordList::getWordAt(char _c1, char _c2)
 		return "";
 	}
 	string t_strWord(m_list[t_iIndex][m_iListGetPoint[t_iIndex]]);
-	m_iListGetPoint[t_iIndex]++;
+	if (_ifDelete)
+	{
+		m_iListGetPoint[t_iIndex]++;
+	}
 	return t_strWord;
+}
+
+string WordList::getWordAt(char _c1, char _c2)
+{
+	return getWordAt(_c1, _c2, true);
 }
 
 void WordList::undoGetWordAt(char _c1, char _c2)

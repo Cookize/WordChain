@@ -122,11 +122,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DPSolve.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Solve.cpp" />
     <ClCompile Include="WordList.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DPSolve.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="Solve.h" />
     <ClInclude Include="WordList.h" />

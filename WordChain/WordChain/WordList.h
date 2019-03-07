@@ -61,6 +61,7 @@ public:
 			
 	*/
 	string getWordAt(char _c1, char _c2);
+	string getWordAt(char _c1, char _c2, bool _ifDelete);
 
 	/*
 		·½·¨£º

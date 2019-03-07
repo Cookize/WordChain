@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Main.h"
 #include "WordList.h"
-#include "Solve.h"
+#include "DPSolve.h"
 
 using namespace std;
 
@@ -32,9 +32,12 @@ int main(int argc, char** argv)
 	{
 		WORDLIST->showAllWord();
 	}
-	Solve *solve = new Solve('w');
-	solve->Solve1(*WORDLIST,false);
-	delete	solve;
+
+	DPSolve *dpSolve = new DPSolve('w');
+	dpSolve->startDPSolve(*WORDLIST);
+
+	delete dpSolve;
+	dpSolve = NULL;
 	delete WORDLIST;
 	WORDLIST = NULL;
 	return 0;

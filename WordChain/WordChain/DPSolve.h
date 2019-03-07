@@ -1,66 +1,80 @@
 #pragma once
 #include"WordList.h"
+#define SUM_ALPH (26)
+
 class DPSolve
 {
 public:
-	/*
-	*/
 	DPSolve(char mode)
 	{
-		init();
-		m_Mode = mode;
-		m_ModeHead = '&';
-		m_ModeTail = '&';
+		initPara();
+		m_cMode = mode;
+		m_cModeHead = '&';
+		m_cModeTail = '&';
 	}
 	DPSolve(char mode, char c, bool is_head)
 	{
-		init();
-		m_Mode = mode;
+		initPara();
+		m_cMode = mode;
 		if (is_head)
 		{
-			m_ModeHead = c;
-			m_ModeTail = '&';
+			m_cModeHead = c;
+			m_cModeTail = '&';
 		}
 		else
 		{
-			m_ModeHead = '&';
-			m_ModeTail = c;
+			m_cModeHead = '&';
+			m_cModeTail = c;
 		}
 	}
 	DPSolve(char mode, char mode_head, char mode_tail)
 	{
-		init();
-		m_Mode = mode;
-		m_ModeHead = mode_head;
-		m_ModeTail = mode_tail;
+		initPara();
+		m_cMode = mode;
+		m_cModeHead = mode_head;
+		m_cModeTail = mode_tail;
 	}
-	void startDPSolve(const WordList &wordList);
+	void startDPSolve(WordList &wordList);
+	int DPStep(WordList &wordList, int indexH);
 
 private:
-	int m_iSigned[26][26]; //问题一 记录 是字母是否使用
-	int m_ihead[26];
-	int m_FinalLen;
-	int m_TemLen;
-	bool is_circle; // 判断是否有环
 
-	char m_Mode;
-	char m_ModeHead;
-	char m_ModeTail;
-	bool m_ModeRing;
+	// 标记位
+	int m_iSigned[SUM_ALPH][SUM_ALPH];	// 记录是首尾路径是否使用
+	int m_iHead[SUM_ALPH];		// 记录字母是否使用
+	bool m_boolIsRing;			// 判断是否有环
 
-	int dp[26];
-	vector <string> m_FinalChain; //最终结果
-	vector <string> m_TempChain;  // 当前路径
-	void init()
+	// 功能参数
+	char m_cMode;
+	char m_cModeHead;
+	char m_cModeTail;
+	bool m_boolModeRing;
+
+	// 计算结果
+	int m_iArrayDp[SUM_ALPH];				// 存储以某字母开头的最长单词链长度
+	int m_iArrayNext[SUM_ALPH];			// 存储以某字母开头的最长单词链
+	vector <string> m_FinalChain;	// 最终结果
+	vector <string> m_TempChain;	// 当前路径
+	
+	// 初始化参数
+	void initPara()
 	{
-		is_circle = 0;
-		m_ModeRing = false;
-		m_FinalLen = 0;
-		m_TemLen = 0;
-		for (int i = 0; i < 26; i++)
+		m_boolIsRing = 0;
+		m_boolModeRing = false;
+		for (int i = 0; i < SUM_ALPH; i++)
 		{
-			m_ihead[i] = 0;
-			for (int j = 0; j < 26; j++)
+			m_iArrayDp[i] = -1;
+			m_iArrayNext[i] = -1;
+		}
+	}
+
+	// 初始化标记位
+	void initFlag()
+	{
+		for (int i = 0; i < SUM_ALPH; i++)
+		{
+			m_iHead[i] = 0;
+			for (int j = 0; j < SUM_ALPH; j++)
 			{
 				m_iSigned[i][j] = 0;
 			}
