@@ -1,9 +1,8 @@
-#pragma once
-#include"WordList.h"
+#ifndef __DP_SOLVE_H_
+#define __DP_SOLVE_H_
+#include "WordList.h"
+#include "GlobalDef.h"
 #include <queue>
-#define SUM_ALPH	(26)
-#define Index2char(x)	(x + 'a')
-#define Char2index(x)	(x - 'a')
 
 using namespace std;
 
@@ -30,8 +29,8 @@ public:
 		initPara();
 		m_ptrWordList = _wordList;
 		m_cMode = _mode;
-		m_cModeHead = _isHead ? _c:'&';
-		m_cModeTail = _isHead ? '&':_c;
+		m_cModeHead = _isHead ? _c : '&';
+		m_cModeTail = _isHead ? '&' : _c;
 	}
 	DPSolve(WordList *_wordList, char _mode, char _head, char _tail)
 	{
@@ -76,7 +75,7 @@ private:
 	int m_iArrayBefore[SUM_ALPH];
 	queue<int> m_iQueueTopo;
 	vector<string> m_strVecWordChain;
-	
+
 	// 初始化参数
 	void initPara()
 	{
@@ -99,3 +98,5 @@ private:
 	*/
 	void genChain(int indexStart, bool flag);
 };
+
+#endif // !__DP_SOLVE_H_

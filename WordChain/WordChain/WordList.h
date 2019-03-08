@@ -1,8 +1,8 @@
 #ifndef __WORD_LIST_H_
 #define __WORD_LIST_H_
+#include "GlobalDef.h"
 #include <vector>
 #include <string>
-#define SUM_ALPH (26)
 using namespace std;
 
 /*
@@ -108,11 +108,6 @@ public:
 	*/
 	void undoGetWordAt(char _c1, char _c2);
 
-	int getNodeIn(char _c)
-	{
-		return getNodeIn(_c - 'a');
-	}
-
 	int getNodeIn(int _index)
 	{
 		if (_index >= 0 && _index < SUM_ALPH)
@@ -120,11 +115,6 @@ public:
 			return m_iArrayNodeIn[_index];
 		}
 		return 0;
-	}
-
-	int getNodeNext(char _c)
-	{
-		return getNodeNext(_c - 'a');
 	}
 
 	int getNodeNext(int _index)

@@ -9,15 +9,15 @@ int DPSolve::DPStep(int indexH)
 	}
 	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
 	{
-		int t_iRemaining = m_ptrWordList->getWordRemainingAt('a' + indexH, 'a' + indexT);
+		int t_iRemaining = m_ptrWordList->getWordRemainingAt(Index2char(indexH), Index2char(indexT));
 		if (t_iRemaining > 0) 
 		{
 			int temp = m_cMode == 'c' ? 
-				m_ptrWordList->getWordAt('a' + indexH, 'a' + indexT, false).length():1;
+				m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length() : 1;
 			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
 			{
 				temp += m_cMode == 'c' ?
-					m_ptrWordList->getWordAt('a' + indexH, 'a' + indexH, false).length() : 1;
+					m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexH), false).length() : 1;
 				continue;
 			}
 			temp += DPStep(indexT);
@@ -39,15 +39,15 @@ int DPSolve::DPStepRe(int indexT)
 	}
 	for (int indexH = 0; indexH < SUM_ALPH; indexH++)// 计算子问题最优解
 	{
-		int t_iRemaining = m_ptrWordList->getWordRemainingAt('a' + indexH, 'a' + indexT);
+		int t_iRemaining = m_ptrWordList->getWordRemainingAt(Index2char(indexH), Index2char(indexT));
 		if (t_iRemaining > 0)
 		{
 			int temp = m_cMode == 'c' ?
-				m_ptrWordList->getWordAt('a' + indexH, 'a' + indexT, false).length() : 1;
+				m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length() : 1;
 			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
 			{
 				temp += m_cMode == 'c' ?
-					m_ptrWordList->getWordAt('a' + indexT, 'a' + indexT, false).length() : 1;
+					m_ptrWordList->getWordAt(Index2char(indexT), Index2char(indexT), false).length() : 1;
 				continue;
 			}
 			temp += DPStepRe(indexH);
@@ -78,13 +78,13 @@ void DPSolve::startDPSolve()
 	}
 	if (m_cModeHead != '&')							// 仅限定开头
 	{
-		t_iMaxIndex = m_cModeHead - 'a';
+		t_iMaxIndex = Char2index(m_cModeHead);
 		DPStep(t_iMaxIndex);
 		genChain(t_iMaxIndex, true);
 	}
 	else if(m_cModeTail != '&')						// 限定结尾
 	{
-		t_iMaxIndex = m_cModeTail - 'a';
+		t_iMaxIndex = Char2index(m_cModeTail);
 		DPStepRe(t_iMaxIndex);
 		genChain(t_iMaxIndex, false);
 	}
@@ -108,7 +108,7 @@ bool DPSolve::topoSort()
 	int t_iArrayNodeIn[SUM_ALPH];
 	for (int i = 0; i < SUM_ALPH; i++)
 	{
-		t_iArrayNodeIn[i] = m_ptrWordList->getNodeIn(i);
+		t_iArrayNodeIn[i] = m_ptrWordList->getNodeIn(Index2char(i));
 		if (t_iArrayNodeIn[i] == 0)
 		{
 			t_iQueueTemp.push(i);
@@ -118,7 +118,7 @@ bool DPSolve::topoSort()
 	{
 		int queueFront = t_iQueueTemp.front();
 		t_iQueueTemp.pop();
-		int nextList = m_ptrWordList->getNodeNext(queueFront);
+		int nextList = m_ptrWordList->getNodeNext(Index2char(queueFront));
 		for (int i = 0; i < SUM_ALPH; i++)
 		{
 			if ((nextList >> i) % 2 == 1)
@@ -142,33 +142,33 @@ void DPSolve::genChain(int index, bool flag) {
 	m_strVecWordChain.clear();
 	if (flag)
 	{
-		if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+		if (m_ptrWordList->getWordSumAt(Index2char(index), Index2char(index)) > 0)
 		{
-			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(Index2char(index), Index2char(index)));
 		}
 		for (int i = 0; i < length; i++)
 		{
-			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(index + 'a', m_iArrayNext[index] + 'a'));
+			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(Index2char(index), m_iArrayNext[index] + 'a'));
 			index = m_iArrayNext[index];
-			if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+			if (m_ptrWordList->getWordSumAt(Index2char(index), Index2char(index)) > 0)
 			{
-				m_strVecWordChain.push_back(m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+				m_strVecWordChain.push_back(m_ptrWordList->getWordAt(Index2char(index), Index2char(index)));
 			}
 		}
 	}
 	else
 	{
-		if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+		if (m_ptrWordList->getWordSumAt(Index2char(index), Index2char(index)) > 0)
 		{
-			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(Index2char(index), Index2char(index)));
 		}
 		for (int i = 0; i < length; i++)
 		{
-			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(m_iArrayBefore[index] + 'a', index + 'a'));
+			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(m_iArrayBefore[index] + 'a', Index2char(index)));
 			index = m_iArrayBefore[index];
-			if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+			if (m_ptrWordList->getWordSumAt(Index2char(index), Index2char(index)) > 0)
 			{
-				m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+				m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(Index2char(index), Index2char(index)));
 			}
 		}
 	}
