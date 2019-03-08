@@ -2,6 +2,7 @@
 #define __WORD_LIST_H_
 #include <vector>
 #include <string>
+#define SUM_ALPH (26)
 using namespace std;
 
 /*
@@ -21,6 +22,11 @@ public:
 	{
 		m_iListSize = new int[MAX_SIZE + 1];
 		m_iListGetPoint = new int[MAX_SIZE + 1];
+		for (int i = 0; i < 26; i++)
+		{
+			m_iArrayNodeIn[i] = 0;
+			m_iArryMatrix[i] = 0;
+		}
 		for (int i = 0; i < MAX_SIZE + 1; i++)
 		{
 			m_iListSize[i] = 0;
@@ -102,6 +108,33 @@ public:
 	*/
 	void undoGetWordAt(char _c1, char _c2);
 
+	int getNodeIn(char _c)
+	{
+		return getNodeIn(_c - 'a');
+	}
+
+	int getNodeIn(int _index)
+	{
+		if (_index >= 0 && _index < SUM_ALPH)
+		{
+			return m_iArrayNodeIn[_index];
+		}
+		return 0;
+	}
+
+	int getNodeNext(char _c)
+	{
+		return getNodeNext(_c - 'a');
+	}
+
+	int getNodeNext(int _index)
+	{
+		if (_index >= 0 && _index < SUM_ALPH)
+		{
+			return m_iArryMatrix[_index];
+		}
+		return 0;
+	}
 
 	/*
 		·½·¨£º
@@ -115,9 +148,14 @@ public:
 
 private:
 	const int MAX_SIZE = 676;
-	int *m_iListSize;
 	vector<string> m_list[677];
+
+	int *m_iListSize;
 	int *m_iListGetPoint;
+
+	int m_iArryMatrix[26];		// ÁÚ½Ó¾ØÕó
+	int m_iArrayNodeIn[26];
+
 	void addWord(const string &_word);
 };
 

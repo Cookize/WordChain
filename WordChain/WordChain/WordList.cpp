@@ -14,7 +14,7 @@ bool isAlph(const char _c)
 void toLower(string &_str)
 {
 	size_t length(_str.length());
-	for (int i = 0; i < length; i++)
+	for (size_t i = 0; i < length; i++)
 	{
 		if (_str[i] >= 'A' && _str[i] <= 'Z')
 		{
@@ -28,7 +28,17 @@ void WordList::addWord(const string &_word)
 	string t_strNewWord(_word);
 	toLower(t_strNewWord);
 	size_t t_iWordLength(t_strNewWord.length());
-	int t_iIndex((t_strNewWord[0] - 'a') * 26 + t_strNewWord[t_iWordLength - 1] - 'a');
+	int t_iIndexH = t_strNewWord[0] - 'a';
+	int t_iIndexT = t_strNewWord[t_iWordLength - 1] - 'a';
+	int t_iIndex(t_iIndexH * 26 + t_iIndexT);
+	if ((m_iArryMatrix[t_iIndexH] >> t_iIndexT) % 2 == 0)			// 更新邻接矩阵和入度计数器
+	{
+		if (t_iIndexH != t_iIndexT || m_iListSize[t_iIndex] != 0)	// 过滤一次首位相同的单词
+		{
+			m_iArryMatrix[t_iIndexH] |= (1 << t_iIndexT);
+			m_iArrayNodeIn[t_iIndexT]++;
+		}
+	}
 	for (int i = 0; i < m_iListSize[t_iIndex]; i++)
 	{
 		if (m_list[t_iIndex][i] == t_strNewWord) 
@@ -49,7 +59,7 @@ void WordList::addWord(const string &_word)
 void WordList::parseString(const string &_str)
 {
 	size_t t_iStrLength(_str.length());
-	int i, j;
+	size_t i, j;
 	for (i = j = 0; i <= t_iStrLength; i++)
 	{
 		if (i == t_iStrLength || !isAlph(_str[i]))

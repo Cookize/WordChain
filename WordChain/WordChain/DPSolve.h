@@ -1,84 +1,81 @@
 #pragma once
 #include"WordList.h"
+#include <queue>
 #define SUM_ALPH (26)
 
+using namespace std;
+
+/*
+	动态规划处理类
+		较高效处理无环情况下的最长单词连搜索
+*/
 class DPSolve
 {
 public:
-	DPSolve(char mode)
+	/*
+		构造函数们
+	*/
+	DPSolve(WordList *_wordList, char _mode)
 	{
 		initPara();
-		m_cMode = mode;
+		m_ptrWordList = _wordList;
+		m_cMode = _mode;
 		m_cModeHead = '&';
 		m_cModeTail = '&';
 	}
-	DPSolve(char mode, char c, bool is_head)
+	DPSolve(WordList *_wordList, char _mode, char _c, bool _isHead)
 	{
 		initPara();
-		m_cMode = mode;
-		if (is_head)
-		{
-			m_cModeHead = c;
-			m_cModeTail = '&';
-		}
-		else
-		{
-			m_cModeHead = '&';
-			m_cModeTail = c;
-		}
+		m_ptrWordList = _wordList;
+		m_cMode = _mode;
+		m_cModeHead = _isHead ? _c:'&';
+		m_cModeTail = _isHead ? '&':_c;
 	}
-	DPSolve(char mode, char mode_head, char mode_tail)
+	DPSolve(WordList *_wordList, char _mode, char _head, char _tail)
 	{
 		initPara();
-		m_cMode = mode;
-		m_cModeHead = mode_head;
-		m_cModeTail = mode_tail;
+		m_ptrWordList = _wordList;
+		m_cMode = _mode;
+		m_cModeHead = _head;
+		m_cModeTail = _tail;
 	}
-	void startDPSolve(WordList &wordList);
-	int DPStep(WordList &wordList, int indexH);
+
+	/*
+		启动函数
+	*/
+	void startDPSolve();
+
+	/*
+		动态规划递归子函数
+	*/
+	int DPStep(int indexH);
+
+	/*
+		拓扑排序，检查是否有环
+	*/
+	bool topoSort();
 
 private:
-
-	// 标记位
-	int m_iSigned[SUM_ALPH][SUM_ALPH];	// 记录是首尾路径是否使用
-	int m_iHead[SUM_ALPH];		// 记录字母是否使用
-	bool m_boolIsRing;			// 判断是否有环
+	// 单词表
+	WordList *m_ptrWordList;
 
 	// 功能参数
 	char m_cMode;
 	char m_cModeHead;
 	char m_cModeTail;
-	bool m_boolModeRing;
 
 	// 计算结果
 	int m_iArrayDp[SUM_ALPH];				// 存储以某字母开头的最长单词链长度
 	int m_iArrayNext[SUM_ALPH];			// 存储以某字母开头的最长单词链
-	vector <string> m_FinalChain;	// 最终结果
-	vector <string> m_TempChain;	// 当前路径
+	queue<int> m_iQueueTopo;
 	
 	// 初始化参数
 	void initPara()
 	{
-		m_boolIsRing = 0;
-		m_boolModeRing = false;
 		for (int i = 0; i < SUM_ALPH; i++)
 		{
 			m_iArrayDp[i] = -1;
 			m_iArrayNext[i] = -1;
 		}
 	}
-
-	// 初始化标记位
-	void initFlag()
-	{
-		for (int i = 0; i < SUM_ALPH; i++)
-		{
-			m_iHead[i] = 0;
-			for (int j = 0; j < SUM_ALPH; j++)
-			{
-				m_iSigned[i][j] = 0;
-			}
-		}
-	}
-
 };
