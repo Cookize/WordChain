@@ -1,7 +1,9 @@
 #pragma once
 #include"WordList.h"
 #include <queue>
-#define SUM_ALPH (26)
+#define SUM_ALPH	(26)
+#define Index2char(x)	(x + 'a')
+#define Char2index(x)	(x - 'a')
 
 using namespace std;
 
@@ -50,6 +52,15 @@ public:
 	*/
 	bool topoSort();
 
+	/*
+		获取单词链
+	*/
+	vector<string> getWordChain()
+	{
+		vector<string> t_output(m_strVecWordChain);
+		return t_output;
+	}
+
 private:
 	// 单词表
 	WordList *m_ptrWordList;
@@ -62,7 +73,9 @@ private:
 	// 计算结果
 	int m_iArrayDp[SUM_ALPH];				// 存储以某字母开头的最长单词链长度
 	int m_iArrayNext[SUM_ALPH];			// 存储以某字母开头的最长单词链
+	int m_iArrayBefore[SUM_ALPH];
 	queue<int> m_iQueueTopo;
+	vector<string> m_strVecWordChain;
 	
 	// 初始化参数
 	void initPara()
@@ -71,6 +84,7 @@ private:
 		{
 			m_iArrayDp[i] = -1;
 			m_iArrayNext[i] = -1;
+			m_iArrayBefore[i] = -1;
 		}
 	}
 
@@ -79,4 +93,9 @@ private:
 	*/
 	int DPStep(int indexH);
 	int DPStepRe(int indexH);
+
+	/*
+		生成单词链
+	*/
+	void genChain(int indexStart, bool flag);
 };

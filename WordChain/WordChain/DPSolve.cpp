@@ -31,13 +31,13 @@ int DPSolve::DPStep(int indexH)
 	return m_iArrayDp[indexH] >= 0 ? m_iArrayDp[indexH] : 0;
 }
 
-int DPSolve::DPStepRe(int indexH)
+int DPSolve::DPStepRe(int indexT)
 {
-	if (m_iArrayDp[indexH] >= 0)					// 已有子问题最优解
+	if (m_iArrayDp[indexT] >= 0)					// 已有子问题最优解
 	{
-		return m_iArrayDp[indexH];
+		return m_iArrayDp[indexT];
 	}
-	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
+	for (int indexH = 0; indexH < SUM_ALPH; indexH++)// 计算子问题最优解
 	{
 		int t_iRemaining = m_ptrWordList->getWordRemainingAt('a' + indexH, 'a' + indexT);
 		if (t_iRemaining > 0)
@@ -47,18 +47,18 @@ int DPSolve::DPStepRe(int indexH)
 			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
 			{
 				temp += m_cMode == 'c' ?
-					m_ptrWordList->getWordAt('a' + indexH, 'a' + indexH, false).length() : 1;
+					m_ptrWordList->getWordAt('a' + indexT, 'a' + indexT, false).length() : 1;
 				continue;
 			}
-			temp += DPStep(indexT);
-			if (m_iArrayDp[indexH] < temp)			// 比较是否为最长
+			temp += DPStepRe(indexH);
+			if (m_iArrayDp[indexT] < temp)			// 比较是否为最长
 			{
-				m_iArrayDp[indexH] = temp;
-				m_iArrayNext[indexH] = indexT;
+				m_iArrayDp[indexT] = temp;
+				m_iArrayBefore[indexT] = indexH;
 			}
 		}
 	}
-	return m_iArrayDp[indexH] >= 0 ? m_iArrayDp[indexH] : 0;
+	return m_iArrayDp[indexT] >= 0 ? m_iArrayDp[indexT] : 0;
 }
 
 void DPSolve::startDPSolve()
@@ -80,10 +80,13 @@ void DPSolve::startDPSolve()
 	{
 		t_iMaxIndex = m_cModeHead - 'a';
 		DPStep(t_iMaxIndex);
+		genChain(t_iMaxIndex, true);
 	}
 	else if(m_cModeTail != '&')						// 限定结尾
 	{
-		// TODO:逆向动态规划
+		t_iMaxIndex = m_cModeTail - 'a';
+		DPStepRe(t_iMaxIndex);
+		genChain(t_iMaxIndex, false);
 	}
 	else
 	{
@@ -94,17 +97,7 @@ void DPSolve::startDPSolve()
 				t_iMaxIndex = i;
 			}
 		}
-	}
-	// 输出结果
-	int length = m_iArrayDp[t_iMaxIndex];
-	for (int i = 0; i < length; i++)
-	{
-		if (m_ptrWordList->getWordSumAt(t_iMaxIndex, t_iMaxIndex) > 0)
-		{
-			cout << m_ptrWordList->getWordAt(t_iMaxIndex + 'a', t_iMaxIndex + 'a') << endl;
-		}
-		cout << m_ptrWordList->getWordAt(t_iMaxIndex + 'a', m_iArrayNext[t_iMaxIndex] + 'a') << endl;
-		t_iMaxIndex = m_iArrayNext[t_iMaxIndex];
+		genChain(t_iMaxIndex, true);
 	}
 	return;
 }
@@ -141,4 +134,43 @@ bool DPSolve::topoSort()
 	}
 	if (m_iQueueTopo.size() == SUM_ALPH) return true;
 	else return false;
+}
+
+void DPSolve::genChain(int index, bool flag) {
+	// 输出结果
+	int length = m_iArrayDp[index];
+	m_strVecWordChain.clear();
+	if (flag)
+	{
+		if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+		{
+			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+		}
+		for (int i = 0; i < length; i++)
+		{
+			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(index + 'a', m_iArrayNext[index] + 'a'));
+			index = m_iArrayNext[index];
+			if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+			{
+				m_strVecWordChain.push_back(m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+			}
+		}
+	}
+	else
+	{
+		if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+		{
+			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+		}
+		for (int i = 0; i < length; i++)
+		{
+			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(m_iArrayBefore[index] + 'a', index + 'a'));
+			index = m_iArrayBefore[index];
+			if (m_ptrWordList->getWordSumAt(index + 'a', index + 'a') > 0)
+			{
+				m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(index + 'a', index + 'a'));
+			}
+		}
+	}
+	
 }

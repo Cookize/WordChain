@@ -22,6 +22,7 @@ int parseFile(string addr)
 	{
 		file >> strLine;
 		WORDLIST->parseString(strLine);
+		strLine.clear();
 	}
 	return 0;
 }
@@ -33,16 +34,25 @@ int main(int argc, char** argv)
 	{
 		WORDLIST->showAllWord();
 	}
-	cout << "Load Finished." << endl;
-	cout << "Start Calculate" << endl;
+	cout << "Load Finished......" << endl;
+	cout << "Start Calculate......" << endl;
 
-	//DPSolve *dpSolve = new DPSolve(WORDLIST, 'w');
-	//dpSolve->startDPSolve();
-	//delete dpSolve;
-	//dpSolve = NULL;
-	Solve *solve = new Solve('w');
-	solve->Solve1(*WORDLIST, false);
-	delete solve;
+	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'c', false);
+	dpSolve->startDPSolve();
+
+	vector<string> ans(dpSolve->getWordChain());
+	size_t length = ans.size();
+	for (size_t i = 0; i < length; i++)
+	{
+		cout << ans[i] << endl;
+	}
+
+	delete dpSolve;
+	dpSolve = NULL;
+
+	//Solve *solve = new Solve('w');
+	//solve->Solve1(*WORDLIST, false);
+	//delete solve;
 	delete WORDLIST;
 	WORDLIST = NULL;
 	return 0;
