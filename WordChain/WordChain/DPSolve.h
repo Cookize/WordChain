@@ -46,11 +46,6 @@ public:
 	void startDPSolve();
 
 	/*
-		动态规划递归子函数
-	*/
-	int DPStep(int indexH);
-
-	/*
 		拓扑排序，检查是否有环
 	*/
 	bool topoSort();
@@ -78,4 +73,10 @@ private:
 			m_iArrayNext[i] = -1;
 		}
 	}
+
+	/*
+		动态规划递归子函数
+	*/
+	int DPStep(int indexH);
+	int DPStepRe(int indexH)
 };

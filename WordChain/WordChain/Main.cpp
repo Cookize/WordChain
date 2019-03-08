@@ -35,14 +35,14 @@ int main(int argc, char** argv)
 	}
 	cout << "Load Finished." << endl;
 	cout << "Start Calculate" << endl;
-	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'z', true);
-	dpSolve->startDPSolve();
 
-	delete dpSolve;
-	dpSolve = NULL;
-	//Solve *solve = new Solve('w');
-	//solve->Solve1(*WORDLIST, false);
-	//delete solve;
+	//DPSolve *dpSolve = new DPSolve(WORDLIST, 'w');
+	//dpSolve->startDPSolve();
+	//delete dpSolve;
+	//dpSolve = NULL;
+	Solve *solve = new Solve('w');
+	solve->Solve1(*WORDLIST, false);
+	delete solve;
 	delete WORDLIST;
 	WORDLIST = NULL;
 	return 0;
