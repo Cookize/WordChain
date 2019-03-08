@@ -78,5 +78,5 @@ private:
 		动态规划递归子函数
 	*/
 	int DPStep(int indexH);
-	int DPStepRe(int indexH)
+	int DPStepRe(int indexH);
 };

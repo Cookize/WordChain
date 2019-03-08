@@ -31,6 +31,36 @@ int DPSolve::DPStep(int indexH)
 	return m_iArrayDp[indexH] >= 0 ? m_iArrayDp[indexH] : 0;
 }
 
+int DPSolve::DPStepRe(int indexH)
+{
+	if (m_iArrayDp[indexH] >= 0)					// 已有子问题最优解
+	{
+		return m_iArrayDp[indexH];
+	}
+	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
+	{
+		int t_iRemaining = m_ptrWordList->getWordRemainingAt('a' + indexH, 'a' + indexT);
+		if (t_iRemaining > 0)
+		{
+			int temp = m_cMode == 'c' ?
+				m_ptrWordList->getWordAt('a' + indexH, 'a' + indexT, false).length() : 1;
+			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
+			{
+				temp += m_cMode == 'c' ?
+					m_ptrWordList->getWordAt('a' + indexH, 'a' + indexH, false).length() : 1;
+				continue;
+			}
+			temp += DPStep(indexT);
+			if (m_iArrayDp[indexH] < temp)			// 比较是否为最长
+			{
+				m_iArrayDp[indexH] = temp;
+				m_iArrayNext[indexH] = indexT;
+			}
+		}
+	}
+	return m_iArrayDp[indexH] >= 0 ? m_iArrayDp[indexH] : 0;
+}
+
 void DPSolve::startDPSolve()
 {
 	// 判断环
