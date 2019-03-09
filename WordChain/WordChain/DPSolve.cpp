@@ -61,13 +61,55 @@ int DPSolve::DPStepRe(int indexT)
 	return m_iArrayDp[indexT] >= 0 ? m_iArrayDp[indexT] : 0;
 }
 
+int DPSolve::DPStepLimited(int indexH)
+{
+	if (m_iArrayDp[indexH] >= 0)					// 已有子问题最优解
+	{
+		return m_iArrayDp[indexH];
+	}
+	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
+	{
+		int t_iRemaining = m_ptrWordList->getWordRemainingAt(Index2char(indexH), Index2char(indexT));
+		if (t_iRemaining > 0)
+		{
+			int temp = m_cMode == 'c' ?
+				m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length() : 1;
+			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
+			{
+				temp += m_cMode == 'c' ?
+					m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexH), false).length() : 1;
+				continue;
+			}
+			temp += DPStep(indexT);
+			if (m_iArrayDp[indexH] < temp 
+				&& (temp < m_iMaxLength || (temp == m_iMaxLength && indexT != Char2index(m_cModeTail))))			// 比较是否为最长
+			{
+				m_iArrayDp[indexH] = temp;
+				m_iArrayNext[indexH] = indexT;
+			}
+		}
+	}
+	return m_iArrayDp[indexH] >= 0 ? m_iArrayDp[indexH] : 0;
+}
+
 void DPSolve::startDPSolve()
 {
 	int t_iMaxIndex = 0;
 	// 判断是否限定开头或结尾
 	if (m_cModeHead != 0 && m_cModeTail != 0)	// 限定开头和结尾
 	{
+		int indexT;
+		do
+		{
+			t_iMaxIndex = Char2index(m_cModeHead);
+			DPStepLimited(t_iMaxIndex);
+			m_iMaxLength = m_iArrayDp[t_iMaxIndex];
+			for (indexT = m_iArrayDp[t_iMaxIndex]; m_iArrayNext[indexT] != -1; indexT = m_iArrayDp[indexT])
+			{
 
+			}
+		} while (indexT != Char2index(m_cModeTail));
+		genChain(t_iMaxIndex, true);
 	}
 	if (m_cModeHead != 0)							// 仅限定开头
 	{

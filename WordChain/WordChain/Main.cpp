@@ -32,6 +32,11 @@ int main(int argc, char** argv)
 		cout << "ERRPR: Found Chain!" << endl;
 		return 0;
 	}
+	cout << "Load Finished......" << endl;
+	cout << "Start Calculate......" << endl;
+	/*
+	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'c', 'l');
+	dpSolve->startDPSolve();
 
 	string addrOut("output.txt");
 	ofstream fileOut(addrOut);
@@ -48,5 +53,14 @@ int main(int argc, char** argv)
 	fileOut.close();
 	
 
+	delete dpSolve;
+	dpSolve = NULL;
+
+	*/
+	Solve *solve = new Solve('c','a',true);
+	solve->solve_he(*WORDLIST);
+	delete solve;
+	delete WORDLIST;
+	WORDLIST = NULL;
 	return 0;
 }
