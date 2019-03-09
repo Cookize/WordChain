@@ -63,13 +63,6 @@ int DPSolve::DPStepRe(int indexT)
 
 void DPSolve::startDPSolve()
 {
-	// 判断环
-	if (!topoSort())
-	{
-		cout << "ERROR: Found Ring In Article!" << endl;
-		return;
-	}
-
 	int t_iMaxIndex = 0;
 	// 判断是否限定开头或结尾
 	if (m_cModeHead != 0 && m_cModeTail != 0)	// 限定开头和结尾
@@ -146,9 +139,9 @@ void DPSolve::genChain(int index, bool flag) {
 		{
 			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(Index2char(index), Index2char(index)));
 		}
-		for (int i = 0; i < length; i++)
+		while(m_iArrayNext[index] != -1)
 		{
-			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(Index2char(index), m_iArrayNext[index] + 'a'));
+			m_strVecWordChain.push_back(m_ptrWordList->getWordAt(Index2char(index), Index2char(m_iArrayNext[index])));
 			index = m_iArrayNext[index];
 			if (m_ptrWordList->getWordSumAt(Index2char(index), Index2char(index)) > 0)
 			{
@@ -162,7 +155,7 @@ void DPSolve::genChain(int index, bool flag) {
 		{
 			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(Index2char(index), Index2char(index)));
 		}
-		for (int i = 0; i < length; i++)
+		while (m_iArrayBefore[index] != -1)
 		{
 			m_strVecWordChain.insert(m_strVecWordChain.begin(), m_ptrWordList->getWordAt(m_iArrayBefore[index] + 'a', Index2char(index)));
 			index = m_iArrayBefore[index];

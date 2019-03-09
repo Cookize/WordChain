@@ -59,7 +59,7 @@ namespace WordListUnitTest
 			}
 		}
 
-		TEST_METHOD(TestMethod_3)	// È«¸²¸Ç²âÊÔ
+		TEST_METHOD(Test_3)	// È«¸²¸Ç²âÊÔ
 		{
 			char h('a');
 			char t('a');
@@ -126,7 +126,7 @@ namespace WordListUnitTest
 			}
 		}
 
-		TEST_METHOD(TestMethod_4)		// Í¬ÖÖµ¥´ÊÖØ¸´²âÊÔ
+		TEST_METHOD(Test_4)		// Í¬ÖÖµ¥´ÊÖØ¸´²âÊÔ
 		{
 			string str_list[] = {
 				"ac", "abc", "abbc", "abbbc", "abbbbc"
@@ -160,6 +160,40 @@ namespace WordListUnitTest
 				}
 				h++;
 			}
+		}
+	
+		TEST_METHOD(Test_5)
+		{
+			string str_list[] = {
+				"ac", "abc" , "abc", "abbc"
+			};
+			Assert::AreEqual(0, WORDLIST->getNodeIn(2));
+			WORDLIST->parseString(str_list[0]);
+			Assert::AreEqual(1, WORDLIST->getNodeIn(2));
+			WORDLIST->parseString(str_list[1]);
+			Assert::AreEqual(1, WORDLIST->getNodeIn(2));
+			WORDLIST->parseString(str_list[2]);
+			Assert::AreEqual(1, WORDLIST->getNodeIn(2));
+			WORDLIST->parseString(str_list[3]);
+			Assert::AreEqual(1, WORDLIST->getNodeIn(2));
+			Assert::AreEqual(1 << 2, WORDLIST->getNodeNext(0));
+		}
+
+		TEST_METHOD(Test_6)
+		{
+			string str_list[] = {
+				"aa", "aba" , "aba", "abba"
+			};
+			Assert::AreEqual(0, WORDLIST->getNodeIn(0));
+			WORDLIST->parseString(str_list[0]);
+			Assert::AreEqual(0, WORDLIST->getNodeIn(0));
+			WORDLIST->parseString(str_list[1]);
+			Assert::AreEqual(1, WORDLIST->getNodeIn(0));
+			WORDLIST->parseString(str_list[2]);
+			Assert::AreEqual(2, WORDLIST->getNodeIn(0));
+			WORDLIST->parseString(str_list[3]);
+			Assert::AreEqual(3, WORDLIST->getNodeIn(0));
+			Assert::AreEqual(1, WORDLIST->getNodeNext(0));
 		}
 	};
 }

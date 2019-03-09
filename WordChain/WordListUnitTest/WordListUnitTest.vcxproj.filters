@@ -29,5 +29,11 @@
     <ClCompile Include="WordListUnitTest1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DPSolveUnitTest1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreUnitTest1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

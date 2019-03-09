@@ -1,13 +1,21 @@
 #include "Core.h"
 
-int Core::gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
+bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
 {
 	WordList *wordList = new WordList();
+	DPSolve *dpSolve = new DPSolve(wordList, 'w', head, tail);
 	int t_iLength = words.size();
 	for (int i = 0; i < t_iLength; i++)
 	{
 		wordList->parseString(words[i]);
 	}
+
+	// 判断环
+	if (!enable_loop && !dpSolve->topoSort())
+	{
+		return false;
+	}
+
 	if (enable_loop)
 	{
 		// TODO:有环
@@ -23,22 +31,29 @@ int Core::gen_chain_word(vector<string> &words, vector<string> &output, char hea
 	}
 	else
 	{
-		DPSolve *dpSolve = new DPSolve(wordList, 'w', head, tail);
 		dpSolve->startDPSolve();
 		dpSolve->getWordChain(output);
 		delete dpSolve;
 		dpSolve = NULL;
 	}
-	return 0;
+	return true;
 }
 
-int Core::gen_chain_char(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
+bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
 {
 	WordList *wordList = new WordList();
+	DPSolve *dpSolve = new DPSolve(wordList, 'c', head, tail);
+
 	int t_iLength = words.size();
 	for (int i = 0; i < t_iLength; i++)
 	{
 		wordList->parseString(words[i]);
+	}
+
+	// 判断环
+	if (!enable_loop && !dpSolve->topoSort())
+	{
+		return false;
 	}
 	if (enable_loop)
 	{
@@ -55,11 +70,10 @@ int Core::gen_chain_char(vector<string> &words, vector<string> &output, char hea
 	}
 	else
 	{
-		DPSolve *dpSolve = new DPSolve(wordList, 'c', head, tail);
 		dpSolve->startDPSolve();
 		dpSolve->getWordChain(output);
 		delete dpSolve;
 		dpSolve = NULL;
 	}
-	return 0;
+	return true;;
 }

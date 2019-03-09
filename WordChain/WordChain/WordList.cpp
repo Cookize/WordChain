@@ -31,14 +31,20 @@ void WordList::addWord(const string &_word)
 	int t_iIndexH = t_strNewWord[0] - 'a';
 	int t_iIndexT = t_strNewWord[t_iWordLength - 1] - 'a';
 	int t_iIndex(t_iIndexH * 26 + t_iIndexT);
+
 	if ((m_iArryMatrix[t_iIndexH] >> t_iIndexT) % 2 == 0)			// 更新邻接矩阵和入度计数器
 	{
-		if (t_iIndexH != t_iIndexT || m_iListSize[t_iIndex] != 0)	// 过滤一次首位相同的单词
+		if (t_iIndexH != t_iIndexT)
 		{
-			m_iArryMatrix[t_iIndexH] |= (1 << t_iIndexT);
 			m_iArrayNodeIn[t_iIndexT]++;
 		}
+		m_iArryMatrix[t_iIndexH] |= (1 << t_iIndexT);
 	}
+	else if(t_iIndexH == t_iIndexT)								// 过滤一次首位相同的单词
+	{
+		m_iArrayNodeIn[t_iIndexT]++;
+	}
+
 	for (int i = 0; i < m_iListSize[t_iIndex]; i++)
 	{
 		if (m_list[t_iIndex][i] == t_strNewWord) 

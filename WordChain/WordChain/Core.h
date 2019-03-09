@@ -11,8 +11,8 @@ using namespace std;
 class Core
 {
 public:
-	int gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop);
-	int gen_chain_char(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop);
+	bool gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop);
+	bool gen_chain_char(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop);
 };
 #endif // !__CORE_H_
 

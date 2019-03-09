@@ -27,8 +27,11 @@ int main(int argc, char** argv)
 	fileIn.close();
 
 
-	core->gen_chain_word(*lines, *chain, 0, 0, false);
-
+	if (!core->gen_chain_char(*lines, *chain, 0, 0, false))
+	{
+		cout << "ERRPR: Found Chain!" << endl;
+		return 0;
+	}
 
 	string addrOut("output.txt");
 	ofstream fileOut(addrOut);
