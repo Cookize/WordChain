@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 	cout << "Load Finished......" << endl;
 	cout << "Start Calculate......" << endl;
 	/*
-	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'c', false);
+	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'c', 'l');
 	dpSolve->startDPSolve();
 
 	vector<string> ans(dpSolve->getWordChain());
@@ -49,10 +49,10 @@ int main(int argc, char** argv)
 
 	delete dpSolve;
 	dpSolve = NULL;
-	*/
 
-	Solve *solve = new Solve('w');
-	solve->Solve1(*WORDLIST, false);
+	*/
+	Solve *solve = new Solve('c','a',true);
+	solve->solve_he(*WORDLIST);
 	delete solve;
 	delete WORDLIST;
 	WORDLIST = NULL;

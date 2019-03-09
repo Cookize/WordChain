@@ -64,6 +64,9 @@ private:
 	// 单词表
 	WordList *m_ptrWordList;
 
+	// 标志位
+	int  m_iMaxLength;
+
 	// 功能参数
 	char m_cMode;
 	char m_cModeHead;
@@ -79,6 +82,7 @@ private:
 	// 初始化参数
 	void initPara()
 	{
+		m_iMaxLength = 1000;
 		for (int i = 0; i < SUM_ALPH; i++)
 		{
 			m_iArrayDp[i] = -1;
@@ -92,6 +96,7 @@ private:
 	*/
 	int DPStep(int indexH);
 	int DPStepRe(int indexH);
+	int DPStepLimited(int indexH);
 
 	/*
 		生成单词链
