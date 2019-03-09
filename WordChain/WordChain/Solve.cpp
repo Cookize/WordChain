@@ -71,7 +71,7 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 		}
 	}
 }
-void Solve::Solve1(WordList& wordlist,bool is_ring)
+vector<string> Solve::Solve1(WordList& wordlist,bool is_ring)
 {
 	int i;
 	m_ModeRing = is_ring;
@@ -91,5 +91,5 @@ void Solve::Solve1(WordList& wordlist,bool is_ring)
 		Dfs_solve1(wordlist, m_ModeHead);
 		m_ihead[m_ModeHead - 'a'] = 0;
 	}
-	printChain();
+	return m_FinalChain;
 }
