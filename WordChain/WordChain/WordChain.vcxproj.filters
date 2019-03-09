@@ -62,7 +62,4 @@
       <Filter>资源文件</Filter>
     </Text>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>

@@ -18,6 +18,8 @@ int main(int argc, char** argv)
 		cout << "ERROR:Illegal Input File!" << endl;
 		return -1;
 	}
+
+
 	while (!fileIn.eof())
 	{
 		string strLine;
@@ -27,17 +29,11 @@ int main(int argc, char** argv)
 	fileIn.close();
 
 
-	if (!core->gen_chain_char(*lines, *chain, 0, 0, false))
+	if (!core->gen_chain_char(*lines, *chain, 'l', 's', false))
 	{
 		cout << "ERRPR: Found Chain!" << endl;
 		return 0;
 	}
-	cout << "Load Finished......" << endl;
-	cout << "Start Calculate......" << endl;
-	/*
-	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'c', 'l');
-	dpSolve->startDPSolve();
-
 	string addrOut("output.txt");
 	ofstream fileOut(addrOut);
 	int length = chain->size();
@@ -51,16 +47,5 @@ int main(int argc, char** argv)
 		fileOut << (*chain)[i] << endl;
 	}
 	fileOut.close();
-	
-
-	delete dpSolve;
-	dpSolve = NULL;
-
-	*/
-	Solve *solve = new Solve('c','a',true);
-	solve->solve_he(*WORDLIST);
-	delete solve;
-	delete WORDLIST;
-	WORDLIST = NULL;
 	return 0;
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿bxoijzslqkegrdpjlfaa
 lffffffffffffffffffffffffffffffffffffffffffffffffffffffd
 bibhoyhda
@@ -8288,16 +8287,3 @@ cc
 ll
 bb
 ss
-=======
-﻿Algebra
-Apple
-Zoo
-Elephant
-Under
-Fox
-Dog
-Moon
-Leaf
-Trick
-Pseudopseudohypoparathyroidism
->>>>>>> develop_dp_ht

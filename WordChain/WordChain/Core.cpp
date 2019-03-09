@@ -24,7 +24,7 @@ bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char he
 	{
 		// TODO:dfs
 		Solve *solve = new Solve('w', head, tail);
-		solve->Solve1(*wordList, true);
+		solve->solve_he(*wordList);
 		 // TODO:格式化输出路径
 		delete solve;
 		solve = NULL;
@@ -63,7 +63,7 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 	{
 		// TODO:dfs
 		Solve *solve = new Solve('c', head, tail);
-		solve->Solve1(*wordList, true);
+		solve->solve_he(*wordList);
 		// TODO:格式化输出路径
 		delete solve;
 		solve = NULL;

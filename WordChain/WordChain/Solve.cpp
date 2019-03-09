@@ -13,22 +13,69 @@ int Solve::get_max(int * a,int num)
 void Solve::printhe(WordList& wordlist)
 {
 	char c = ' ';
-	cout << m_ModeTail << endl;
+	if (m_Mode == LENGTH) max_num = m_FinalLen;
+	cout << max_num << endl;
+	for (int i = 0; i < 26; i++)
+		cout << i << "   " << max_dfs[i] << endl;
 	while (max_num > 0)
 	{
 		int id1 = get_max(max_dfs, max_num);
+		//cout << id1 << endl;
 		int id2;
 		string next_word(wordlist.getWordAt(id1 + 'a', 'a' + id1,false));
 		if (!next_word.empty())
 		{
-			id2 = get_max(max_dfs, max_num - 2);
-			cout << next_word << endl;
-			max_num -= 2;
+			int len;
+			if (m_Mode == NUM)
+				len = 2;
+			else if(m_Mode = LENGTH)
+			{
+				len = next_word.size();
+			}
+			max_num -= len;
+			if (m_Mode == LENGTH)
+			{
+				int mid = 0;
+				for (int i = 0; i < 26; i++)
+				{
+					if (i == id1) continue;
+					
+					int lenth_cir = wordlist.getWordAt(id1 + 'a', 'a' + i, false).size();
+					
+					if (!wordlist.getWordAt(id1 + 'a', 'a' + i, false).empty() && (max_num - lenth_cir) == max_dfs[i])
+					{
+						mid = max_dfs[i];
+					}
+				}
+				max_num = mid;
+			}
+			id2 = get_max(max_dfs, max_num);
+			//cout << next_word << endl;
+			
 		}
 		else
 		{
-			id2 = get_max(max_dfs, max_num - 1);
-			max_num -= 1;
+			int len;
+			if (m_Mode == NUM)
+				len = 1;
+			else if (m_Mode = LENGTH)
+			{
+				int mid = 0;
+				for (int i = 0; i < 26; i++)
+				{
+					if (i == id1) continue;
+
+					int lenth_cir = wordlist.getWordAt(id1 + 'a', 'a' + i, false).size();
+
+					if (!wordlist.getWordAt(id1 + 'a', 'a' + i, false).empty() && (max_num - lenth_cir) == max_dfs[i])
+					{
+						mid = max_dfs[i];
+					}
+				}
+				max_num = mid;
+			}
+			id2 = get_max(max_dfs, max_num -len );
+			max_num -= len;
 		}
 			
 		string next_word2(wordlist.getWordAt(id1 + 'a', 'a' + id2,false));
@@ -49,7 +96,6 @@ void Solve::cmp_he()
 	}
 	else if (m_Mode == LENGTH)
 	{
-		cout<<m_FinalLen<<endl;
 		if (m_FinalLen < m_TemLen )
 		{
 			m_FinalLen = m_TemLen;
@@ -61,12 +107,15 @@ void Solve::cmp_he()
 void Solve::Dfs_solvehe(WordList& wordlist, int c)
 {
 	int i,flag=0;
+	int dis;
 	for (i = 0; i < 26; i++)
 	{
 		string next_word(wordlist.getWordAt(c+ 'a', 'a' + i, false));
 		if (!next_word.empty() && c==i)
 		{
 			flag = 1;
+			if (m_Mode == NUM) dis = 1;
+			if (m_Mode == LENGTH) dis = int(next_word.size());
 			continue;
 		}
 		bool is_em = next_word.empty();
@@ -83,8 +132,15 @@ void Solve::Dfs_solvehe(WordList& wordlist, int c)
 			if (m_Mode == LENGTH) distance = l1;
 			if (max_dfs[i] !=-1)
 			{
+				/*
 				if ((temp_num + 1 + max_dfs[i]) > max_num)
 					max_num = temp_num + 1 + max_dfs[i];
+					*/
+				temp_num += 1 + max_dfs[i];
+				m_TemLen += l1 + max_dfs[i];
+				cmp_he();
+				temp_num -= (1 + max_dfs[i]);
+				m_TemLen -= (l1 + max_dfs[i]);
 				if (max_dfs[c] < (max_dfs[i] + distance))
 				{
 					max_dfs[c] = max_dfs[i] + distance;
@@ -110,7 +166,8 @@ void Solve::Dfs_solvehe(WordList& wordlist, int c)
 	if (flag == 1)
 	{
 		max_num += 1;
-		max_dfs[c] += 1;
+		m_FinalLen += dis;
+		max_dfs[c] += dis;
 	}
 }
 
