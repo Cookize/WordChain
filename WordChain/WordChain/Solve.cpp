@@ -15,8 +15,9 @@ void Solve::printhe(WordList& wordlist)
 	char c = ' ';
 	if (m_Mode == LENGTH) max_num = m_FinalLen;
 	cout << max_num << endl;
+	/*
 	for (int i = 0; i < 26; i++)
-		cout << i << "   " << max_dfs[i] << endl;
+		cout << i << "   " << max_dfs[i] << endl;*/
 	while (max_num > 0)
 	{
 		int id1 = get_max(max_dfs, max_num);
@@ -50,7 +51,7 @@ void Solve::printhe(WordList& wordlist)
 				max_num = mid;
 			}
 			id2 = get_max(max_dfs, max_num);
-			//cout << next_word << endl;
+			cout << next_word << endl;
 			
 		}
 		else
@@ -72,7 +73,8 @@ void Solve::printhe(WordList& wordlist)
 						mid = max_dfs[i];
 					}
 				}
-				max_num = mid;
+				len = max_num - mid;
+				
 			}
 			id2 = get_max(max_dfs, max_num -len );
 			max_num -= len;

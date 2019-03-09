@@ -18,7 +18,11 @@ bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char he
 
 	if (enable_loop)
 	{
-		// TODO:有环
+		Solve *solve = new Solve('w');
+		solve->Solve1(*wordList,true);
+		// TODO:格式化输出路径
+		delete solve;
+		solve = NULL;
 	}
 	else if (head != 0 && tail != 0)
 	{
@@ -57,7 +61,11 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 	}
 	if (enable_loop)
 	{
-		// TODO:有环
+		Solve *solve = new Solve('c');
+		solve->Solve1(*wordList, true);
+		// TODO:格式化输出路径
+		delete solve;
+		solve = NULL;
 	}
 	else if (head != 0 && tail != 0)
 	{
