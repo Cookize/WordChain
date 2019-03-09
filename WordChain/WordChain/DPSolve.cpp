@@ -108,7 +108,7 @@ bool DPSolve::topoSort()
 	int t_iArrayNodeIn[SUM_ALPH];
 	for (int i = 0; i < SUM_ALPH; i++)
 	{
-		t_iArrayNodeIn[i] = m_ptrWordList->getNodeIn(Index2char(i));
+		t_iArrayNodeIn[i] = m_ptrWordList->getNodeIn(i);
 		if (t_iArrayNodeIn[i] == 0)
 		{
 			t_iQueueTemp.push(i);
@@ -118,7 +118,7 @@ bool DPSolve::topoSort()
 	{
 		int queueFront = t_iQueueTemp.front();
 		t_iQueueTemp.pop();
-		int nextList = m_ptrWordList->getNodeNext(Index2char(queueFront));
+		int nextList = m_ptrWordList->getNodeNext(queueFront);
 		for (int i = 0; i < SUM_ALPH; i++)
 		{
 			if ((nextList >> i) % 2 == 1)

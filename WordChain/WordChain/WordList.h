@@ -110,20 +110,12 @@ public:
 
 	int getNodeIn(int _index)
 	{
-		if (_index >= 0 && _index < SUM_ALPH)
-		{
-			return m_iArrayNodeIn[_index];
-		}
-		return 0;
+		return m_iArrayNodeIn[_index];
 	}
 
 	int getNodeNext(int _index)
 	{
-		if (_index >= 0 && _index < SUM_ALPH)
-		{
-			return m_iArryMatrix[_index];
-		}
-		return 0;
+		return m_iArryMatrix[_index];
 	}
 
 	/*

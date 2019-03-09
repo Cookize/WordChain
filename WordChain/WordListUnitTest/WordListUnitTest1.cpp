@@ -23,7 +23,7 @@ namespace WordListUnitTest
 			WORDLIST = NULL;
 		}
 
-		TEST_METHOD(TestMethod_1)
+		TEST_METHOD(Test_1)		// 输入空字符串
 		{
 			string str("");
 			WORDLIST->parseString(str);
@@ -41,7 +41,7 @@ namespace WordListUnitTest
 			}
 		}
 
-		TEST_METHOD(TestMethod_2)
+		TEST_METHOD(Test_2)		// 输入非单词字符串
 		{
 			string str("1234567890-=_+[]{}\\|;':\",.<>/?");
 			WORDLIST->parseString(str);
@@ -59,7 +59,7 @@ namespace WordListUnitTest
 			}
 		}
 
-		TEST_METHOD(TestMethod_3)
+		TEST_METHOD(TestMethod_3)	// 全覆盖测试
 		{
 			char h('a');
 			char t('a');
@@ -67,27 +67,66 @@ namespace WordListUnitTest
 			{
 				while (t <= 'z')
 				{
+					string str_1(5, h);
+					string str_2(5, t);
+					string str_3(6, t);
+					string str_in_1(str_1 + str_2);
+					string str_in_2(str_1 + str_3);
+
+					// 初始值为0
 					Assert::AreEqual(0, WORDLIST->getWordSumAt(h, t));
 					Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
-					string str_1(5, h);
-					string str_2(6, t);
-					string str_in(str_1 + str_2);
-					WORDLIST->parseString(str_in);
+
+					// 加入一个单词
+					WORDLIST->parseString(str_in_1);
 					Assert::AreEqual(1, WORDLIST->getWordSumAt(h, t));
 					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
-					Assert::AreEqual(str_in, WORDLIST->getWordAt(h, t));
+
+					// 加入一个相同单词
+					WORDLIST->parseString(str_in_1);
 					Assert::AreEqual(1, WORDLIST->getWordSumAt(h, t));
+					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
+
+					// 加入一个不同单词
+					WORDLIST->parseString(str_in_2);
+					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
+					Assert::AreEqual(2, WORDLIST->getWordRemainingAt(h, t));
+
+					// 获取开头单词
+					Assert::AreEqual(str_in_2, WORDLIST->getWordAt(h, t, false));
+					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
+					Assert::AreEqual(2, WORDLIST->getWordRemainingAt(h, t));
+
+					// 取出开头单词
+					Assert::AreEqual(str_in_2, WORDLIST->getWordAt(h, t, true));
+					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
+					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
+
+					// 取出开头单词
+					Assert::AreEqual(str_in_1, WORDLIST->getWordAt(h, t, true));
+					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
 					Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
+
+					// 撤销取出
 					WORDLIST->undoGetWordAt(h, t);
-					Assert::AreEqual(1, WORDLIST->getWordSumAt(h, t));
+					Assert::AreEqual(str_in_1, WORDLIST->getWordAt(h, t, false));
+					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
 					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
+
+					// 撤销取出
+					WORDLIST->undoGetWordAt(h, t);
+					Assert::AreEqual(str_in_2, WORDLIST->getWordAt(h, t, false));
+					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
+					Assert::AreEqual(2, WORDLIST->getWordRemainingAt(h, t));
+
+
 					t++;
 				}
 				h++;
 			}
 		}
 
-		TEST_METHOD(TestMethod_4)
+		TEST_METHOD(TestMethod_4)		// 同种单词重复测试
 		{
 			string str_list[] = {
 				"ac", "abc", "abbc", "abbbc", "abbbbc"
