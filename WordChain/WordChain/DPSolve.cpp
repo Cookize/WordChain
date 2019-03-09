@@ -72,17 +72,17 @@ void DPSolve::startDPSolve()
 
 	int t_iMaxIndex = 0;
 	// 判断是否限定开头或结尾
-	if (m_cModeHead != '&' && m_cModeTail != '&')	// 限定开头和结尾
+	if (m_cModeHead != 0 && m_cModeTail != 0)	// 限定开头和结尾
 	{
 
 	}
-	if (m_cModeHead != '&')							// 仅限定开头
+	if (m_cModeHead != 0)							// 仅限定开头
 	{
 		t_iMaxIndex = Char2index(m_cModeHead);
 		DPStep(t_iMaxIndex);
 		genChain(t_iMaxIndex, true);
 	}
-	else if(m_cModeTail != '&')						// 限定结尾
+	else if(m_cModeTail != 0)						// 限定结尾
 	{
 		t_iMaxIndex = Char2index(m_cModeTail);
 		DPStepRe(t_iMaxIndex);

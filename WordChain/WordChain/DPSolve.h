@@ -54,10 +54,9 @@ public:
 	/*
 		ªÒ»°µ•¥ ¡¥
 	*/
-	vector<string> getWordChain()
+	void getWordChain(vector<string> &output)
 	{
-		vector<string> t_output(m_strVecWordChain);
-		return t_output;
+		output.assign(m_strVecWordChain.begin(), m_strVecWordChain.end());
 	}
 
 private:

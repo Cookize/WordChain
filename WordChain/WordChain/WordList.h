@@ -20,14 +20,14 @@ class WordList
 public:
 	WordList()
 	{
-		m_iListSize = new int[MAX_SIZE + 1];
-		m_iListGetPoint = new int[MAX_SIZE + 1];
+		m_iListSize = new int[SUM_ALPH_2 + 1];
+		m_iListGetPoint = new int[SUM_ALPH_2 + 1];
 		for (int i = 0; i < 26; i++)
 		{
 			m_iArrayNodeIn[i] = 0;
 			m_iArryMatrix[i] = 0;
 		}
-		for (int i = 0; i < MAX_SIZE + 1; i++)
+		for (int i = 0; i < SUM_ALPH_2 + 1; i++)
 		{
 			m_iListSize[i] = 0;
 			m_iListGetPoint[i] = 0;
@@ -137,8 +137,7 @@ public:
 	void showAllWord();
 
 private:
-	const int MAX_SIZE = 676;
-	vector<string> m_list[677];
+	vector<string> m_list[SUM_ALPH_2 + 1];
 
 	int *m_iListSize;
 	int *m_iListGetPoint;

@@ -1,18 +1,18 @@
 #include <fstream>
 #include <iostream>
+#include <vector>
 #include "Main.h"
-#include "WordList.h"
-#include "DPSolve.h"
-#include "Solve.h"
+#include "Core.h"
 
 using namespace std;
 
-WordList *WORDLIST = new WordList();
-
-int parseFile(string addr)
+int main(int argc, char** argv)
 {
+	string addr("test.txt");
 	ifstream file(addr);
-	string strLine;
+	vector<string> *lines = new vector<string>();
+	vector<string> *chain = new vector<string>();
+	Core *core = new Core();
 	if (!file.is_open())
 	{
 		cout << "ERROR:Illegal Input File!" << endl;
@@ -20,41 +20,13 @@ int parseFile(string addr)
 	}
 	while (!file.eof())
 	{
+		string strLine;
 		file >> strLine;
-		WORDLIST->parseString(strLine);
-		strLine.clear();
+		lines->push_back(strLine);
 	}
-	return 0;
-}
+	core->gen_chain_word(*lines, *chain, 0, 0, false);
 
-int main(int argc, char** argv)
-{
-	string path("test.txt");
-	if (parseFile(path) == 0)
-	{
-		WORDLIST->showAllWord();
-	}
-	cout << "Load Finished......" << endl;
-	cout << "Start Calculate......" << endl;
+	
 
-	/*
-	DPSolve *dpSolve = new DPSolve(WORDLIST, 'w', 'c', false);
-	dpSolve->startDPSolve();
-
-	vector<string> ans(dpSolve->getWordChain());
-	size_t length = ans.size();
-	for (size_t i = 0; i < length; i++)
-	{
-		cout << ans[i] << endl;
-	}
-
-	delete dpSolve;
-	dpSolve = NULL;
-	*/
-	Solve *solve = new Solve('w');
-	solve->Solve1(*WORDLIST, true);
-	delete solve;
-	delete WORDLIST;
-	WORDLIST = NULL;
 	return 0;
 }

@@ -77,7 +77,7 @@ void WordList::parseString(const string &_str)
 string WordList::getWordAt(char _c1, char _c2, bool _ifDelete)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	if (t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
 	{
 		return "";
 	}
@@ -101,7 +101,7 @@ string WordList::getWordAt(char _c1, char _c2)
 void WordList::undoGetWordAt(char _c1, char _c2)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	if (t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
 	{
 		return;
 	}
@@ -115,7 +115,7 @@ void WordList::undoGetWordAt(char _c1, char _c2)
 int WordList::getWordSumAt(char _c1, char _c2)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if(t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	if(t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
 	{
 		return 0;
 	}
@@ -125,7 +125,7 @@ int WordList::getWordSumAt(char _c1, char _c2)
 int WordList::getWordRemainingAt(char _c1, char _c2)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (t_iIndex < 0 || t_iIndex > MAX_SIZE)
+	if (t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
 	{
 		return 0;
 	}
@@ -142,7 +142,7 @@ void WordList::showAllWord()
 		cout << "ERROR:Illegal Output File!" << endl;
 		return;
 	}
-	for (int i = 0; i < MAX_SIZE; i++)
+	for (int i = 0; i < SUM_ALPH_2; i++)
 	{
 		if (m_iListSize[i] == 0)
 		{
