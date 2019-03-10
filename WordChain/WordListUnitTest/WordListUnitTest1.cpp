@@ -10,7 +10,7 @@ namespace WordListUnitTest
 	{
 	public:
 		
-		WordList *WORDLIST;
+		WordList *WORDLIST = NULL;
 
 		TEST_METHOD_INITIALIZE(initWordList)
 		{

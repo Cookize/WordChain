@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 	fileIn.close();
 
 
-	if (!core->gen_chain_char(*lines, *chain, 0, 0, true))
+	if (!core->gen_chain_char(*lines, *chain, 'b', 'd', false))
 	{
 		cout << "ERRPR: Found Chain!" << endl;
 		return 0;

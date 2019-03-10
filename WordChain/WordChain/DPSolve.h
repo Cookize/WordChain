@@ -61,20 +61,20 @@ public:
 
 private:
 	// 单词表
-	WordList *m_ptrWordList;
+	WordList *m_ptrWordList = NULL;
 
 	// 标志位
-	int  m_iMaxLength;
+	int  m_iMaxLength = 0;
 
 	// 功能参数
-	char m_cMode;
-	char m_cModeHead;
-	char m_cModeTail;
+	char m_cMode = 'w';
+	char m_cModeHead = 0;
+	char m_cModeTail = 0;
 
 	// 计算结果
-	int m_iArrayDp[SUM_ALPH];				// 存储以某字母开头的最长单词链长度
-	int m_iArrayNext[SUM_ALPH];			// 存储以某字母开头的最长单词链
-	int m_iArrayBefore[SUM_ALPH];
+	int m_iArrayDp[SUM_ALPH] = { 0 };				// 存储以某字母开头的最长单词链长度
+	int m_iArrayNext[SUM_ALPH] = { -1 };			// 存储以某字母开头的最长单词链
+	int m_iArrayBefore[SUM_ALPH] = { -1 };
 	queue<int> m_iQueueTopo;
 	vector<string> m_strVecWordChain;
 

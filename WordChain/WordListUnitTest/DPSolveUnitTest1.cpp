@@ -11,8 +11,8 @@ namespace DPSolveUnitTest
 	{
 	public:
 
-		WordList *WORDLIST;
-		DPSolve *dpSolve;
+		WordList *WORDLIST = NULL;
+		DPSolve *dpSolve = NULL;
 
 
 		TEST_METHOD_INITIALIZE(initEnv)

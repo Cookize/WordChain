@@ -131,11 +131,11 @@ public:
 private:
 	vector<string> m_list[SUM_ALPH_2 + 1];
 
-	int *m_iListSize;
-	int *m_iListGetPoint;
+	int *m_iListSize = NULL;
+	int *m_iListGetPoint = NULL;
 
-	int m_iArryMatrix[26];		// ÁÚ½Ó¾ØÕó
-	int m_iArrayNodeIn[26];
+	int m_iArryMatrix[26] = { 0 };		// ÁÚ½Ó¾ØÕó
+	int m_iArrayNodeIn[26] = { 0 };
 
 	void addWord(const string &_word);
 };
