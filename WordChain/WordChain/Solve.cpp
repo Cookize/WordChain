@@ -9,6 +9,7 @@ int Solve::get_max(int * a,int num)
 		if (a[i] == num)
 			return i;
 	}
+	return -1;
 }
 void Solve::printhe(WordList& wordlist, vector<string> &output)
 {
@@ -26,10 +27,10 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 		string next_word(wordlist.getWordAt(id1 + 'a', 'a' + id1,false));
 		if (!next_word.empty())
 		{
-			int len;
+			int len = 0;
 			if (m_Mode == NUM)
 				len = 2;
-			else if(m_Mode = LENGTH)
+			else if(m_Mode == LENGTH)
 			{
 				len = next_word.size();
 			}
@@ -57,10 +58,10 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 		}
 		else
 		{
-			int len;
+			int len = 0;
 			if (m_Mode == NUM)
 				len = 1;
-			else if (m_Mode = LENGTH)
+			else if (m_Mode == LENGTH)
 			{
 				int mid = 0;
 				for (int i = 0; i < 26; i++)
@@ -91,16 +92,11 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 		if (c == m_ModeTail)
 			break;
 	}
-	try {
-		if (output.size() <= 1)
-		{
-			throw 1;
-		}
-	}
-	catch (int i)
+	if (output.size() <= 1)
 	{
-		cout << "Chain size must be greater than 1\n" << endl;
+		throw new string("Chain size must be greater than 1\n");
 	}
+
 }
 
 void Solve::cmp_he()
@@ -189,7 +185,6 @@ void Solve::Dfs_solvehe(WordList& wordlist, int c)
 
 void Solve::solve_he(WordList& wordlist, vector<string> &output)
 {
-	int i;
 	head = m_ModeHead - 'a';
 	m_ihead[head] = 1;
 	Dfs_solvehe(wordlist, head);
@@ -199,22 +194,15 @@ void Solve::solve_he(WordList& wordlist, vector<string> &output)
 
 void Solve::printChain(vector<string> &output)
 {
-	try {
-
-
-		if (m_FinalChain.size() <= 1)
-		{
-			throw 1;
-		}
-		else
-		{
-			output.assign(m_FinalChain.begin(), m_FinalChain.end());
-		}
-	}
-	catch (int i)
+	if (m_FinalChain.size() <= 1)
 	{
-		cout << "Chain size must be greater than 1\n" << endl;
+		throw new string("Chain size must be greater than 1\n");
 	}
+	else
+	{
+		output.assign(m_FinalChain.begin(), m_FinalChain.end());
+	}
+
 }
 void Solve::cmp()
 {
@@ -289,6 +277,6 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 		Dfs_solve1(wordlist, m_ModeHead);
 		m_ihead[m_ModeHead - 'a'] = 0;
 	}
-	//printChain();
+	printChain(output);
 
 }
