@@ -1,2 +1,7 @@
-﻿ll
-ss
+﻿ab
+aaaaabbbbbccccc
+aaaaaddddd
+bc
+cb
+cd
+da
