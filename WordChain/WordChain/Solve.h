@@ -39,8 +39,8 @@ public:
 		m_ModeHead = mode_head;
 		m_ModeTail = mode_tail;
 	}
-	void Solve1(WordList & wordlist, bool is_ring);
-	void solve_he(WordList& wordlist);
+	void Solve1(WordList & wordlist, bool is_ring, vector<string> &output);
+	void solve_he(WordList& wordlist, vector<string> &outputc);
 
 	
 private:
@@ -67,8 +67,8 @@ private:
 	void cmp();
 	void cmp_he();
 	void Dfs_solvehe(WordList& wordlist, int c);
-	void printChain();
-	void printhe(WordList& wordlist);
+	void printChain(vector<string> &output);
+	void printhe(WordList& wordlist, vector<string> &output);
 	int get_max(int * a, int num);
 	void init()
 	{

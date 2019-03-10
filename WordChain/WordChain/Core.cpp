@@ -19,7 +19,7 @@ bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char he
 	if (enable_loop)
 	{
 		Solve *solve = new Solve('w');
-		solve->Solve1(*wordList,true);
+		solve->Solve1(*wordList,true,output);
 		// TODO:格式化输出路径
 		delete solve;
 		solve = NULL;
@@ -28,7 +28,7 @@ bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char he
 	{
 		// TODO:dfs
 		Solve *solve = new Solve('w', head, tail);
-		solve->solve_he(*wordList);
+		solve->solve_he(*wordList,output);
 		 // TODO:格式化输出路径
 		delete solve;
 		solve = NULL;
@@ -62,7 +62,7 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 	if (enable_loop)
 	{
 		Solve *solve = new Solve('c');
-		solve->Solve1(*wordList, true);
+		solve->Solve1(*wordList, true, output);
 		// TODO:格式化输出路径
 		delete solve;
 		solve = NULL;
@@ -71,7 +71,7 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 	{
 		// TODO:dfs
 		Solve *solve = new Solve('c', head, tail);
-		solve->solve_he(*wordList);
+		solve->solve_he(*wordList, output);
 		// TODO:格式化输出路径
 		delete solve;
 		solve = NULL;
