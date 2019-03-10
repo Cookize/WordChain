@@ -76,7 +76,6 @@ int main(int argc, char** argv)
 	ifstream fileIn(addrIn);
 	vector<string> *lines = new vector<string>();
 	vector<string> *chain = new vector<string>();
-	Core *core = new Core();
 	if (!fileIn.is_open())
 	{
 		cout << "ERROR:Illegal Input File!" << endl;
@@ -90,7 +89,7 @@ int main(int argc, char** argv)
 	}
 	fileIn.close();
 
-
+	Core *core = new Core();
 	if (paraFlag[0] == 2) {
 		if (!core->gen_chain_char(*lines, *chain, head, tail, paraFlag[3] == 1))
 		{
@@ -106,7 +105,8 @@ int main(int argc, char** argv)
 			return 0;
 		}
 	}
-
+	delete core;
+	core = NULL;
 	
 	string addrOut("output.txt");
 	ofstream fileOut(addrOut);
