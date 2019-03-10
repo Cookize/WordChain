@@ -2,6 +2,7 @@
 
 bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
 {
+	if (!checkChar(head) || !checkChar(tail)) return false;
 	WordList *wordList = new WordList();
 	DPSolve *dpSolve = new DPSolve(wordList, 'w', head, tail);
 	int t_iLength = words.size();
@@ -40,11 +41,16 @@ bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char he
 		delete dpSolve;
 		dpSolve = NULL;
 	}
+	if (output.size() <= 1)
+	{
+		return false;
+	}
 	return true;
 }
 
 bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
 {
+	if (!checkChar(head) || !checkChar(tail)) return false;
 	WordList *wordList = new WordList();
 	DPSolve *dpSolve = new DPSolve(wordList, 'c', head, tail);
 
@@ -82,6 +88,10 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 		dpSolve->getWordChain(output);
 		delete dpSolve;
 		dpSolve = NULL;
+	}
+	if (output.size() <= 1)
+	{
+		return false;
 	}
 	return true;
 }
