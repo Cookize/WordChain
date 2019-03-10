@@ -9,7 +9,7 @@ bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char he
 	{
 		wordList->parseString(words[i]);
 	}
-
+	wordList->showAllWord();
 	// ÅÐ¶Ï»·
 	if (!enable_loop && !dpSolve->topoSort())
 	{
@@ -53,7 +53,7 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 	{
 		wordList->parseString(words[i]);
 	}
-
+	wordList->showAllWord();
 	// ÅÐ¶Ï»·
 	if (!enable_loop && !dpSolve->topoSort())
 	{
@@ -83,5 +83,5 @@ bool Core::gen_chain_char(vector<string> &words, vector<string> &output, char he
 		delete dpSolve;
 		dpSolve = NULL;
 	}
-	return true;;
+	return true;
 }

@@ -18,8 +18,6 @@ int main(int argc, char** argv)
 		cout << "ERROR:Illegal Input File!" << endl;
 		return -1;
 	}
-
-
 	while (!fileIn.eof())
 	{
 		string strLine;
@@ -29,7 +27,9 @@ int main(int argc, char** argv)
 	fileIn.close();
 
 
-	if (!core->gen_chain_char(*lines, *chain, 'b', 'd', false))
+
+
+	if (!core->gen_chain_word(*lines, *chain, 'b', 'd', false))
 	{
 		cout << "ERRPR: Found Chain!" << endl;
 		return 0;
