@@ -13,6 +13,7 @@ public:
 	Solve(char mode)
 	{
 		init();
+		temp_num = 0;
 		m_Mode = mode;
 		m_ModeHead = '&';
 		m_ModeTail = '&';
@@ -20,6 +21,7 @@ public:
 	Solve(char mode,char c,bool is_head)
 	{
 		init();
+		temp_num = 0;
 		m_Mode = mode;
 		if (is_head)
 		{
@@ -35,6 +37,7 @@ public:
 	Solve(char mode,char mode_head,char mode_tail)
 	{
 		init();
+		temp_num = 0;
 		m_Mode = mode;
 		m_ModeHead = mode_head;
 		m_ModeTail = mode_tail;
@@ -93,7 +96,6 @@ private:
 
 		for (int i = 0; i < 676; i++)
 		{
-			m_ihead[i] = 0;
 			for (int j = 0; j < 676; j++)
 			{
 				m_ans[i][j] = 0;
