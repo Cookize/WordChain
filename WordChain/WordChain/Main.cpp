@@ -28,8 +28,7 @@ int main(int argc, char** argv)
 
 
 
-
-	if (!core->gen_chain_word(*lines, *chain, 'b', 'd', false))
+	if (!core->gen_chain_char(*lines, *chain, 'b', 'd', false))
 	{
 		cout << "ERRPR: Found Chain!" << endl;
 		return 0;

@@ -85,17 +85,27 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 		string next_word2(wordlist.getWordAt(id1 + 'a', 'a' + id2,false));
 		if (id1 != id2 && !next_word2.empty())
 		{
-			cout << next_word2 << endl;
+			//cout << next_word2 << endl;
 			output.push_back(next_word2);
 		}
 		c = next_word2[next_word2.size() - 1];
 		if (c == m_ModeTail)
+		{
+			string next_word(wordlist.getWordAt(c,c, false));
+			if (!next_word.empty())
+			{
+				//cout << next_word << endl;
+				output.push_back(next_word); 
+			}
+
 			break;
+		}
 	}
+	/*
 	if (output.size() <= 1)
 	{
 		throw new string("Chain size must be greater than 1\n");
-	}
+	}*/
 
 }
 
