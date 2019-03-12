@@ -206,7 +206,7 @@ void Solve::printChain(vector<string> &output)
 {
 	if (m_FinalChain.size() <= 1)
 	{
-		throw new string("Chain size must be greater than 1\n");
+		//throw new string("Chain size must be greater than 1\n");
 	}
 	else
 	{
@@ -218,8 +218,9 @@ void Solve::cmp()
 {
 	if (m_Mode == NUM)
 	{
-		if (m_FinalChain.size() < m_TempChain.size())
+		if (max_num <= temp_num)
 		{
+			max_num = temp_num;
 			m_FinalChain.clear();
 			m_FinalChain.assign(m_TempChain.begin(), m_TempChain.end());
 		}
@@ -237,34 +238,33 @@ void Solve::cmp()
 }
 void Solve::Dfs_solve1(WordList& wordlist, char c)
 {
-	if (is_circle == 1) return;
-	int i;
-	for (i = 0; i < 26; i++)
+	int i, j;
+	if (next_tag[c - 'a'][0] == -1)
 	{
+		cmp();
+		return;
+	}
+	for (j = 0; next_tag[c - 'a'][j] != -1; j++)
+	{
+		i = next_tag[c - 'a'][j];
 		int a = (c - 'a') * 26 + i;
-		//cout << a << endl;
-
-		if (m_iSigned[c-'a'][i]==1&& !(m_ModeTail != '&' && m_ModeTail != c))
+		if (m_iSigned[c - 'a'][i] == 1)
 		{
 			cmp();
 		}
-		else if (m_iSigned[c - 'a'][i] == 0 && word->m_list[a].size()!=0)
+		else if (m_iSigned[c - 'a'][i] == 0)
 		{
 			int l1 = int(word->m_list[a][word->m_iListGetPoint[a]].length());
-			if (!m_ModeRing && m_ihead[i] == 1 && ((c - 'a') != i || ((c - 'a') == i && m_iSigned[i][i] == 1)))
-			{
-				is_circle = 1;
-				return;
-			}
 			m_iSigned[c - 'a'][i] = 1;
-			m_TempChain.push_back(word->m_list[a][word->m_iListGetPoint[a]++]);
+			m_TempChain.push_back(word->m_list[a][word->m_iListGetPoint[a]]);
+			temp_num += 1;
 			m_TemLen += l1;
-			m_ihead[i] = 1;
+			word->m_iListGetPoint[a]++;
 			Dfs_solve1(wordlist, 'a' + i);
-			m_ihead[i] = 0;
-			m_TemLen -= l1;
-			m_TempChain.pop_back();
 			word->m_iListGetPoint[a]--;
+			m_TemLen -= l1;
+			temp_num -= 1;
+			m_TempChain.pop_back();
 			m_iSigned[c - 'a'][i] = 0;
 		}
 	}
@@ -274,6 +274,20 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 	int i;
 	word = wordlist.getWordList();
 	m_ModeRing = is_ring;
+	for (int i = 0; i < 26; i++)
+	{
+		int k = 0;
+		for (int j = 0; j < 26; j++)
+		{
+			int id = (i * 26) + j;
+			if (word->m_list[id].size() == 0)
+				continue;
+			next_tag[i][k++] = j;
+		
+		}
+		next_tag[i][k] = -1;
+		cout << k << endl;
+	}
 	if (m_ModeHead == '&')
 	{
 		for (i = 0; i < 26; i++)
@@ -282,6 +296,7 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 			Dfs_solve1(wordlist, 'a' + i);
 			m_ihead[i] = 0;
 			cout << i << endl;
+			break;
 		}
 	}
 	else

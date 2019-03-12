@@ -1,3 +1,4 @@
+
 ab
 bc
 cb
@@ -7,8 +8,7 @@ de
 ed
 ef
 fe
-ffgg
-gf
+fg
 gh
 hg
 hc

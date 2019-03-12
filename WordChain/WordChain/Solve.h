@@ -51,6 +51,7 @@ private:
 	int m_iSigned[26][26] = {0}; //问题一 记录 是字母是否使用
 	int m_ihead[26] = {0};
 	int m_ans[676][676] = {0}; //记录单词是否使用的变量
+	int next_tag[26][26] = { 0 };
 	int len_ans[26][26] = {0};
 	int max_dfs[26] = {0};
 	int final_dfs[26] = {0};
