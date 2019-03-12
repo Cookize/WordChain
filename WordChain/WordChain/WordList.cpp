@@ -83,20 +83,16 @@ void WordList::parseString(const string &_str)
 string WordList::getWordAt(char _c1, char _c2, bool _ifDelete)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
-	{
-		return "";
-	}
 	if (m_iListSize[t_iIndex] <= 0 || m_iListGetPoint[t_iIndex] >= m_iListSize[t_iIndex])
 	{
 		return "";
 	}
-	string t_strWord(m_list[t_iIndex][m_iListGetPoint[t_iIndex]]);
+	int index = m_iListGetPoint[t_iIndex];
 	if (_ifDelete)
 	{
 		m_iListGetPoint[t_iIndex]++;
 	}
-	return t_strWord;
+	return m_list[t_iIndex][index];
 }
 
 string WordList::getWordAt(char _c1, char _c2)

@@ -279,6 +279,7 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 			m_ihead[i] = 1;
 			Dfs_solve1(wordlist, 'a' + i);
 			m_ihead[i] = 0;
+			cout << i << endl;
 		}
 	}
 	else
