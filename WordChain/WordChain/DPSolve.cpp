@@ -9,7 +9,7 @@ int DPSolve::DPStep(int indexH)
 	}
 	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
 	{
-		int t_iRemaining = m_ptrWordList->getWordRemainingAt(Index2char(indexH), Index2char(indexT));
+		int t_iRemaining = m_ptrWordList->getWordSumAt(Index2char(indexH), Index2char(indexT));
 		if (t_iRemaining > 0) 
 		{
 			int temp = m_cMode == 'c' ? 
@@ -39,7 +39,7 @@ int DPSolve::DPStepRe(int indexT)
 	}
 	for (int indexH = 0; indexH < SUM_ALPH; indexH++)// 计算子问题最优解
 	{
-		int t_iRemaining = m_ptrWordList->getWordRemainingAt(Index2char(indexH), Index2char(indexT));
+		int t_iRemaining = m_ptrWordList->getWordSumAt(Index2char(indexH), Index2char(indexT));
 		if (t_iRemaining > 0)
 		{
 			int temp = m_cMode == 'c' ?
@@ -69,7 +69,7 @@ int DPSolve::DPStepLimited(int indexH)
 	}
 	for (int indexT = 0; indexT < SUM_ALPH; indexT++)// 计算子问题最优解
 	{
-		int t_iRemaining = m_ptrWordList->getWordRemainingAt(Index2char(indexH), Index2char(indexT));
+		int t_iRemaining = m_ptrWordList->getWordSumAt(Index2char(indexH), Index2char(indexT));
 		if (t_iRemaining > 0)
 		{
 			int temp = m_cMode == 'c' ?

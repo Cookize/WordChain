@@ -5,6 +5,12 @@
 #include <string>
 using namespace std;
 
+typedef struct
+{
+	vector<string> m_list[SUM_ALPH_2 + 1];
+	int m_iListGetPoint[SUM_ALPH_2 + 1];
+}WORD;
+
 /*
 	类名：
 		字典
@@ -21,7 +27,7 @@ public:
 	WordList()
 	{
 		m_iListSize = new int[SUM_ALPH_2 + 1];
-		m_iListGetPoint = new int[SUM_ALPH_2 + 1];
+		m_words = new WORD;
 		for (int i = 0; i < 26; i++)
 		{
 			m_iArrayNodeIn[i] = 0;
@@ -30,15 +36,15 @@ public:
 		for (int i = 0; i < SUM_ALPH_2 + 1; i++)
 		{
 			m_iListSize[i] = 0;
-			m_iListGetPoint[i] = 0;
+			m_words->m_iListGetPoint[i] = 0;
 		}
 	}
 	~WordList()
 	{
 		delete m_iListSize;
-		delete m_iListGetPoint;
+		delete m_words;
+		m_words = NULL;
 		m_iListSize = NULL;
-		m_iListGetPoint = NULL;
 	}
 
 	/*
@@ -81,33 +87,6 @@ public:
 	*/
 	int getWordSumAt(char _c1, char _c2);
 
-	/*
-		方法：
-			获取符合首尾条件的单词“剩余”数量。
-		输入：
-			_c1：首字母；
-			_c2：尾字母；
-		输出：
-			符合首尾条件的单词剩余数量。
-
-	*/
-	int getWordRemainingAt(char _c1, char _c2);
-
-	/*
-		方法：
-			撤销单词获取操作。
-		输入：
-			_c1：首字母；
-			_c2：尾字母；
-		输出：
-			无
-		效果：
-			撤销符合首尾条件的单词前一次获取操作。
-		注意：
-			回溯时调用，可以撤销一次获取操作。
-	*/
-	void undoGetWordAt(char _c1, char _c2);
-
 	int getNodeIn(int _index)
 	{
 		return m_iArrayNodeIn[_index];
@@ -128,11 +107,16 @@ public:
 	*/
 	void showAllWord();
 
+	WORD* getWordList()
+	{
+		return m_words;
+	}
+
 private:
-	vector<string> m_list[SUM_ALPH_2 + 1];
+	WORD *m_words = NULL;
 
 	int *m_iListSize = NULL;
-	int *m_iListGetPoint = NULL;
+	
 
 	int m_iArryMatrix[26] = { 0 };		// 邻接矩阵
 	int m_iArrayNodeIn[26] = { 0 };

@@ -47,6 +47,7 @@ public:
 
 
 private:
+	WORD * word =NULL;
 	int m_iSigned[26][26] = {0}; //问题一 记录 是字母是否使用
 	int m_ihead[26] = {0};
 	int m_ans[676][676] = {0}; //记录单词是否使用的变量

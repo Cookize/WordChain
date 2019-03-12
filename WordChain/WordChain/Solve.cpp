@@ -241,29 +241,30 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 	int i;
 	for (i = 0; i < 26; i++)
 	{
-		string next_word(wordlist.getWordAt(c, 'a' + i));
+		int a = (c - 'a') * 26 + i;
+		//cout << a << endl;
 
-		if (next_word.empty() && !(m_ModeTail != '&' && m_ModeTail != c))
+		if (m_iSigned[c-'a'][i]==1&& !(m_ModeTail != '&' && m_ModeTail != c))
 		{
 			cmp();
 		}
-		else if (!next_word.empty())
+		else if (m_iSigned[c - 'a'][i] == 0 && word->m_list[a].size()!=0)
 		{
-			int l1 = int(next_word.length());
+			int l1 = int(word->m_list[a][word->m_iListGetPoint[a]].length());
 			if (!m_ModeRing && m_ihead[i] == 1 && ((c - 'a') != i || ((c - 'a') == i && m_iSigned[i][i] == 1)))
 			{
 				is_circle = 1;
 				return;
 			}
 			m_iSigned[c - 'a'][i] = 1;
-			m_TempChain.push_back(next_word);
+			m_TempChain.push_back(word->m_list[a][word->m_iListGetPoint[a]++]);
 			m_TemLen += l1;
 			m_ihead[i] = 1;
 			Dfs_solve1(wordlist, 'a' + i);
 			m_ihead[i] = 0;
 			m_TemLen -= l1;
 			m_TempChain.pop_back();
-			wordlist.undoGetWordAt(c, 'a' + i);
+			word->m_iListGetPoint[a]--;
 			m_iSigned[c - 'a'][i] = 0;
 		}
 	}
@@ -271,6 +272,7 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 {
 	int i;
+	word = wordlist.getWordList();
 	m_ModeRing = is_ring;
 	if (m_ModeHead == '&')
 	{

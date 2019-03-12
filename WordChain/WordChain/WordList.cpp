@@ -47,18 +47,18 @@ void WordList::addWord(const string &_word)
 
 	for (int i = 0; i < m_iListSize[t_iIndex]; i++)
 	{
-		if (m_list[t_iIndex][i] == t_strNewWord) 
+		if (m_words->m_list[t_iIndex][i] == t_strNewWord) 
 		{
 			return;
 		}
-		if (m_list[t_iIndex][i].length() < t_iWordLength)
+		if (m_words->m_list[t_iIndex][i].length() < t_iWordLength)
 		{
-			m_list[t_iIndex].insert(m_list[t_iIndex].begin() + i, t_strNewWord);
+			m_words->m_list[t_iIndex].insert(m_words->m_list[t_iIndex].begin() + i, t_strNewWord);
 			m_iListSize[t_iIndex]++;
 			return;
 		}
 	}
-	m_list[t_iIndex].push_back(t_strNewWord);
+	m_words->m_list[t_iIndex].push_back(t_strNewWord);
 	m_iListSize[t_iIndex]++;
 }
 
@@ -83,35 +83,12 @@ void WordList::parseString(const string &_str)
 string WordList::getWordAt(char _c1, char _c2, bool _ifDelete)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (m_iListSize[t_iIndex] <= 0 || m_iListGetPoint[t_iIndex] >= m_iListSize[t_iIndex])
-	{
-		return "";
-	}
-	int index = m_iListGetPoint[t_iIndex];
-	if (_ifDelete)
-	{
-		m_iListGetPoint[t_iIndex]++;
-	}
-	return m_list[t_iIndex][index];
+	return m_words->m_list[t_iIndex][0];
 }
 
 string WordList::getWordAt(char _c1, char _c2)
 {
 	return getWordAt(_c1, _c2, true);
-}
-
-void WordList::undoGetWordAt(char _c1, char _c2)
-{
-	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
-	{
-		return;
-	}
-	if (m_iListGetPoint[t_iIndex] > 0)
-	{
-		m_iListGetPoint[t_iIndex]--;
-	}
-	return;
 }
 
 int WordList::getWordSumAt(char _c1, char _c2)
@@ -122,16 +99,6 @@ int WordList::getWordSumAt(char _c1, char _c2)
 		return 0;
 	}
 	return m_iListSize[t_iIndex];
-}
-
-int WordList::getWordRemainingAt(char _c1, char _c2)
-{
-	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
-	if (t_iIndex < 0 || t_iIndex > SUM_ALPH_2)
-	{
-		return 0;
-	}
-	return m_iListSize[t_iIndex] - m_iListGetPoint[t_iIndex];
 }
 
 // test
@@ -153,7 +120,7 @@ void WordList::showAllWord()
 		out << (char)(i / 26 + 'a') << "->" << (char)(i % 26 + 'a') << endl;
 		for (int j = 0; j < m_iListSize[i]; j++)
 		{
-			out << m_list[i][j] << endl;
+			out << m_words->m_list[i][j] << endl;
 			count++;
 		}
 		out << "-----------------------------" << endl;
