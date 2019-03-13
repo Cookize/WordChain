@@ -2,11 +2,11 @@
 #include <iostream>
 
 using namespace std;
-int Solve::get_max(int * a,int num)
+int Solve::get_max(WordList& wordlist,int * a,int num,char c)
 {
 	for (int i = 0; i < 26; i++)
 	{
-		if (a[i] == num)
+		if (a[i] == num && (c == '&'|| !wordlist.getWordAt(c, 'a' +i, false).empty()))
 			return i;
 	}
 	return -1;
@@ -15,14 +15,10 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 {
 	char c = ' ';
 	if (m_Mode == LENGTH) max_num = m_FinalLen;
-	//cout << max_num << endl;
-	/*
-	for (int i = 0; i < 26; i++)
-		cout << i << "   " << max_dfs[i] << endl;*/
+
 	while (max_num > 0)
 	{
-		int id1 = get_max(max_dfs, max_num);
-		//cout << id1 << endl;
+		int id1 = get_max(wordlist,max_dfs, max_num,'&');
 		int id2;
 		string next_word(wordlist.getWordAt(id1 + 'a', 'a' + id1,false));
 		if (!next_word.empty())
@@ -51,8 +47,7 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 				}
 				max_num = mid;
 			}
-			id2 = get_max(max_dfs, max_num);
-			//cout << next_word << endl;
+			id2 = get_max(wordlist,max_dfs, max_num,'a'+id1);
 			output.push_back(next_word);
 			
 		}
@@ -78,14 +73,13 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 				len = max_num - mid;
 				
 			}
-			id2 = get_max(max_dfs, max_num -len );
+			id2 = get_max(wordlist,max_dfs, max_num -len,'a'+ id1);
 			max_num -= len;
 		}
 			
 		string next_word2(wordlist.getWordAt(id1 + 'a', 'a' + id2,false));
 		if (id1 != id2 && !next_word2.empty())
 		{
-			//cout << next_word2 << endl;
 			output.push_back(next_word2);
 		}
 		c = next_word2[next_word2.size() - 1];
@@ -94,19 +88,19 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 			string next_word(wordlist.getWordAt(c,c, false));
 			if (!next_word.empty())
 			{
-				//cout << next_word << endl;
 				output.push_back(next_word); 
 			}
 
 			break;
 		}
 	}
-	/*
-	if (output.size() <= 1)
+	if (output.size() > 0)
 	{
-		throw new string("Chain size must be greater than 1\n");
-	}*/
-
+		if (m_ModeTail != '&' && output[output.size() - 1][output[output.size() - 1].length() - 1] !=m_ModeTail)
+		{
+			output.clear();
+		}
+	}
 }
 
 void Solve::cmp_he()
@@ -154,10 +148,6 @@ void Solve::Dfs_solvehe(WordList& wordlist, int c)
 			if (m_Mode == LENGTH) distance = l1;
 			if (max_dfs[i] !=-1)
 			{
-				/*
-				if ((temp_num + 1 + max_dfs[i]) > max_num)
-					max_num = temp_num + 1 + max_dfs[i];
-					*/
 				temp_num += 1 + max_dfs[i];
 				m_TemLen += l1 + max_dfs[i];
 				cmp_he();
@@ -241,8 +231,17 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 	int i, j;
 	if (next_tag[c - 'a'][0] == -1)
 	{
-		cmp();
-		return;
+		if (m_ModeTail != '&')
+		{
+			if (m_ModeTail == c)
+			{
+				cmp();
+			}
+		}
+		else
+		{
+			cmp();
+		}
 	}
 	for (j = 0; next_tag[c - 'a'][j] != -1; j++)
 	{
@@ -250,7 +249,18 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 		int a = (c - 'a') * 26 + i;
 		if (m_iSigned[c - 'a'][i] == 1)
 		{
-			cmp();
+			if (m_ModeTail != '&')
+			{
+				if (m_ModeTail == ('a'+i))
+				{
+					cmp();
+				}
+			}
+			else
+			{
+				cmp();
+			}
+			
 		}
 		else if (m_iSigned[c - 'a'][i] == 0)
 		{

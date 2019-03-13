@@ -83,6 +83,8 @@ void WordList::parseString(const string &_str)
 string WordList::getWordAt(char _c1, char _c2, bool _ifDelete)
 {
 	int t_iIndex((_c1 - 'a') * 26 + _c2 - 'a');
+	if (m_words->m_list[t_iIndex].size() == 0)
+		return "";
 	return m_words->m_list[t_iIndex][0];
 }
 

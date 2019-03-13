@@ -26,9 +26,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="WordListUnitTest1.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="DPSolveUnitTest1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
