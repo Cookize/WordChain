@@ -428,50 +428,54 @@ namespace CoreUnitTest
 			delete chain;
 		}
 
-		TEST_METHOD(Test_15) {				// -w -r -h
+		TEST_METHOD(Test_15) {				// -w -r -h -t
 			string words[] = {
-				"ab", "aaaccc", "aaaaabbbbbcccccddddd",
-				"bc",
-				"cb", "cd",
-				"dd",
+				"ab",
+				"bccccccccccccccccccccccccccc", "bd",
+				"cd",
+				"da", "dc",
 			};
 			string ans[] = {
-				"cb", "bc"
+				"bd", "dc", "cd", "da"
 			};
 			vector<string> *lines = new vector<string>();
 			vector<string> *chain = new vector<string>();
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 6; i++)
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'c', 0, true));
-			Assert::AreEqual(size_t(2), chain->size());
+			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'b', 'a', true));
+			Assert::AreEqual(size_t(4), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
+			Assert::AreEqual(ans[2], (*chain)[2]);
+			Assert::AreEqual(ans[3], (*chain)[3]);
 			delete lines;
 			delete chain;
 		}
 
 		TEST_METHOD(Test_16) {				// -c -r -h
 			string words[] = {
-				"ab", "aaaccc", "aaaaabbbbbcccccddddd",
-				"bc",
-				"cb", "cd",
-				"dd",
+				"ab",
+				"bccccccccccccccccccccccccccc", "bd",
+				"cd",
+				"da", "dc",
 			};
 			string ans[] = {
-				"cb", "bc"
+				"bccccccccccccccccccccccccccc","cd", "da"
 			};
 			vector<string> *lines = new vector<string>();
 			vector<string> *chain = new vector<string>();
-			for (int i = 0; i < 7; i++)
+			for (int i = 0; i < 6; i++)
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'c', 0, true));
-			Assert::AreEqual(size_t(2), chain->size());
+			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 'b', 'a', true));
+			Assert::AreEqual(size_t(3), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
+			Assert::AreEqual(ans[2], (*chain)[2]);
+			Assert::AreEqual(ans[3], (*chain)[3]);
 			delete lines;
 			delete chain;
 		}

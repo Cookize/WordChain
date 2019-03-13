@@ -91,7 +91,7 @@ int main(int argc, char** argv)
 
 	Core *core = new Core();
 	if (paraFlag[0] == 2) {
-		if (!core->gen_chain_char(*lines, *chain, head, tail, paraFlag[3] == 1))
+		if (core->gen_chain_char(*lines, *chain, head, tail, paraFlag[3] == 1) != 0)
 		{
 			cout << "ERROR!" << endl;
 			return 0;
@@ -99,7 +99,7 @@ int main(int argc, char** argv)
 	}
 	else
 	{
-		if (!core->gen_chain_word(*lines, *chain, head, tail, paraFlag[3] == 1))
+		if (core->gen_chain_word(*lines, *chain, head, tail, paraFlag[3] == 1) != 0)
 		{
 			cout << "ERROR!" << endl;
 			return 0;
