@@ -428,7 +428,53 @@ namespace CoreUnitTest
 			delete chain;
 		}
 
+		TEST_METHOD(Test_15) {				// -w -r -h
+			string words[] = {
+				"ab", "aaaccc", "aaaaabbbbbcccccddddd",
+				"bc",
+				"cb", "cd",
+				"dd",
+			};
+			string ans[] = {
+				"cb", "bc"
+			};
+			vector<string> *lines = new vector<string>();
+			vector<string> *chain = new vector<string>();
+			for (int i = 0; i < 7; i++)
+			{
+				lines->push_back(words[i]);
+			}
+			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'c', 0, true));
+			Assert::AreEqual(size_t(2), chain->size());
+			Assert::AreEqual(ans[0], (*chain)[0]);
+			Assert::AreEqual(ans[1], (*chain)[1]);
+			delete lines;
+			delete chain;
+		}
 
+		TEST_METHOD(Test_16) {				// -c -r -h
+			string words[] = {
+				"ab", "aaaccc", "aaaaabbbbbcccccddddd",
+				"bc",
+				"cb", "cd",
+				"dd",
+			};
+			string ans[] = {
+				"cb", "bc"
+			};
+			vector<string> *lines = new vector<string>();
+			vector<string> *chain = new vector<string>();
+			for (int i = 0; i < 7; i++)
+			{
+				lines->push_back(words[i]);
+			}
+			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'c', 0, true));
+			Assert::AreEqual(size_t(2), chain->size());
+			Assert::AreEqual(ans[0], (*chain)[0]);
+			Assert::AreEqual(ans[1], (*chain)[1]);
+			delete lines;
+			delete chain;
+		}
 
 	};
 }

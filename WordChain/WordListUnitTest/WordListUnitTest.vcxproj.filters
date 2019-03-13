@@ -32,6 +32,9 @@
     <ClCompile Include="CoreUnitTest1.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="WordListUnitTest1.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="test_core_1.txt">
