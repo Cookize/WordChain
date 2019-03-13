@@ -188,7 +188,7 @@ namespace CoreUnitTest
 			delete chain;
 		}
 
-		TEST_METHOD(Test_7)				// -w -h -t
+ 		TEST_METHOD(Test_7)				// -w -h -t
 		{
 			string words[] = {
 				"ab",

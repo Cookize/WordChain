@@ -74,7 +74,7 @@ private:
 	void Dfs_solvehe(WordList& wordlist, int c);
 	void printChain(vector<string> &output);
 	void printhe(WordList& wordlist, vector<string> &output);
-	int get_max(int * a, int num);
+	int get_max(WordList& wordlist, int * a, int num, char c);
 	void init()
 	{
 		is_circle = 0;
