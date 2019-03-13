@@ -2,7 +2,7 @@
 
 bool Core::gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
 {
-	if (!checkChar(head) || !checkChar(tail)) return false;
+	if (!checkChar(head) || !checkChar(tail)) throw ;
 	wordList = new WordList();
 	dpSolve = new DPSolve(wordList, 'w', head, tail);
 	int t_iLength = words.size();

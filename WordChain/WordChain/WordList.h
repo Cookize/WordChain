@@ -8,7 +8,7 @@ using namespace std;
 typedef struct
 {
 	vector<string> m_list[SUM_ALPH_2 + 1];
-	int m_iListGetPoint[SUM_ALPH_2 + 1];
+	int m_iListGetPoint[SUM_ALPH_2 + 1] = { 0 };
 }WORD;
 
 /*
