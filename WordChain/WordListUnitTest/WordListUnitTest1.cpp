@@ -34,7 +34,6 @@ namespace WordListUnitTest
 				while (t <= 'z')
 				{
 					Assert::AreEqual(0, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
 					t++;
 				}
 				h++;
@@ -52,7 +51,6 @@ namespace WordListUnitTest
 				while (t <= 'z')
 				{
 					Assert::AreEqual(0, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
 					t++;
 				}
 				h++;
@@ -75,51 +73,22 @@ namespace WordListUnitTest
 
 					// 初始值为0
 					Assert::AreEqual(0, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
 
 					// 加入一个单词
 					WORDLIST->parseString(str_in_1);
 					Assert::AreEqual(1, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
 
 					// 加入一个相同单词
 					WORDLIST->parseString(str_in_1);
 					Assert::AreEqual(1, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
 
 					// 加入一个不同单词
 					WORDLIST->parseString(str_in_2);
 					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(2, WORDLIST->getWordRemainingAt(h, t));
 
 					// 获取开头单词
 					Assert::AreEqual(str_in_2, WORDLIST->getWordAt(h, t, false));
 					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(2, WORDLIST->getWordRemainingAt(h, t));
-
-					// 取出开头单词
-					Assert::AreEqual(str_in_2, WORDLIST->getWordAt(h, t, true));
-					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
-
-					// 取出开头单词
-					Assert::AreEqual(str_in_1, WORDLIST->getWordAt(h, t, true));
-					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
-
-					// 撤销取出
-					WORDLIST->undoGetWordAt(h, t);
-					Assert::AreEqual(str_in_1, WORDLIST->getWordAt(h, t, false));
-					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(1, WORDLIST->getWordRemainingAt(h, t));
-
-					// 撤销取出
-					WORDLIST->undoGetWordAt(h, t);
-					Assert::AreEqual(str_in_2, WORDLIST->getWordAt(h, t, false));
-					Assert::AreEqual(2, WORDLIST->getWordSumAt(h, t));
-					Assert::AreEqual(2, WORDLIST->getWordRemainingAt(h, t));
-
-
 					t++;
 				}
 				h++;
@@ -143,18 +112,15 @@ namespace WordListUnitTest
 					if (h == 'a' && t == 'c')
 					{
 						Assert::AreEqual(5, WORDLIST->getWordSumAt(h, t));
-						Assert::AreEqual(5, WORDLIST->getWordRemainingAt(h, t));
 						for (int i = 0; i < 5; i++)
 						{
-							Assert::AreEqual(str_list[4 - i], WORDLIST->getWordAt(h, t));
+							Assert::AreEqual(str_list[4], WORDLIST->getWordAt(h, t));
 							Assert::AreEqual(5, WORDLIST->getWordSumAt(h, t));
-							Assert::AreEqual(5 - (i + 1), WORDLIST->getWordRemainingAt(h, t));
 						}
 					}
 					else
 					{
 						Assert::AreEqual(0, WORDLIST->getWordSumAt(h, t));
-						Assert::AreEqual(0, WORDLIST->getWordRemainingAt(h, t));
 					}
 					t++;
 				}

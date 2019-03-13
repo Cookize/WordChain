@@ -239,7 +239,7 @@ namespace CoreUnitTest
 			};
 			vector<string> *lines = new vector<string>();
 			vector<string> *chain = new vector<string>();
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 11; i++)
 			{
 				lines->push_back(words[i]);
 			}
