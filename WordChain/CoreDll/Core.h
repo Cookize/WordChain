@@ -21,6 +21,7 @@ using namespace std;
 typedef struct
 {
 	vector<string> m_list[SUM_ALPH_2 + 1];
+	vector<bool> m_flag[SUM_ALPH_2 + 1];
 	int m_iListGetPoint[SUM_ALPH_2 + 1] = { 0 };
 }WORDD;
 
@@ -108,7 +109,7 @@ public:
 
 	int getNodeOut(int _index)
 	{
-		return m_iArrayNodeIn[_index];
+		return m_iArrayNodeOut[_index];
 	}
 
 	int getNodeNext(int _index)

@@ -62,6 +62,7 @@ private:
 	int m_TemLen = 0; 
 	int max_num = 0;
 	int temp_num = 0;
+	int cir_tag[10000] = {0};
 	bool is_circle = 0; // ≈–∂œ «∑Ò”–ª∑ 
 	int head = 0;
 	char m_Mode = NUM;

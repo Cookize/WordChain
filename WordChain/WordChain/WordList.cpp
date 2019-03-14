@@ -55,11 +55,13 @@ void WordList::addWord(const string &_word)
 		if (m_words->m_list[t_iIndex][i].length() < t_iWordLength)
 		{
 			m_words->m_list[t_iIndex].insert(m_words->m_list[t_iIndex].begin() + i, t_strNewWord);
+			m_words->m_flag[t_iIndex].push_back(false);
 			m_iListSize[t_iIndex]++;
 			return;
 		}
 	}
 	m_words->m_list[t_iIndex].push_back(t_strNewWord);
+	m_words->m_flag[t_iIndex].push_back(false);
 	m_iListSize[t_iIndex]++;
 }
 

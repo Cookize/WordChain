@@ -259,6 +259,8 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 			if (m_ModeTail == c)
 			{
 				cmp();
+
+
 			}
 		}
 		else
@@ -270,7 +272,22 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 	{
 		i = next_tag[c - 'a'][j];
 		int a = (c - 'a') * 26 + i;
-		if (m_iSigned[c - 'a'][i] == 1)
+		
+		if (word->m_iListGetPoint[a] >= int(word->m_list[a].size())) {
+			if (m_ModeTail != '&')
+			{
+				if (m_ModeTail == c)
+				{
+					cmp();
+				}
+			}
+			else
+			{
+				cmp();
+			}
+			continue;
+		}
+		if (word->m_flag[a][word->m_iListGetPoint[a]])
 		{
 			if (m_ModeTail != '&' || (m_ModeTail != '&' && m_ModeTail == c))
 			{
@@ -285,20 +302,22 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 			}
 			
 		}
-		else if (m_iSigned[c - 'a'][i] == 0)
+		else if (!word->m_flag[a][word->m_iListGetPoint[a]])
 		{
 			int l1 = int(word->m_list[a][word->m_iListGetPoint[a]].length());
-			m_iSigned[c - 'a'][i] = 1;
+			//m_iSigned[c - 'a'][i] = 1;
 			m_TempChain.push_back(word->m_list[a][word->m_iListGetPoint[a]]);
+			word->m_flag[a][word->m_iListGetPoint[a]] = true;
 			temp_num += 1;
 			m_TemLen += l1;
 			word->m_iListGetPoint[a]++;
 			Dfs_solve1(wordlist, 'a' + i);
 			word->m_iListGetPoint[a]--;
+			word->m_flag[a][word->m_iListGetPoint[a]] = false;
 			m_TemLen -= l1;
 			temp_num -= 1;
 			m_TempChain.pop_back();
-			m_iSigned[c - 'a'][i] = 0;
+			//m_iSigned[c - 'a'][i] = 0;
 		}
 	}
 }
