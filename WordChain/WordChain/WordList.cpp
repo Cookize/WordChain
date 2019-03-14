@@ -44,6 +44,7 @@ void WordList::addWord(const string &_word)
 	{
 		m_iArrayNodeIn[t_iIndexT]++;
 	}
+	m_iArrayNodeOut[t_iIndexH]++;
 
 	for (int i = 0; i < m_iListSize[t_iIndex]; i++)
 	{

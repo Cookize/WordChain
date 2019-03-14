@@ -213,7 +213,18 @@ void Solve::cmp()
 		{
 			max_num = temp_num;
 			m_FinalChain.clear();
-			m_FinalChain.assign(m_TempChain.begin(), m_TempChain.end());
+			int temp_out[26] = { 0 };
+			for (int i = 0; i < temp_num; i++)
+			{
+				temp_out[m_TempChain[i][0] - 'a'] += 1;
+				m_FinalChain.push_back(m_TempChain[i]);
+				
+			}
+			for (int i = 0; i < 26; i++)
+			{
+				if (out[i] == temp_out[i])
+					go[i] = 1;
+			}
 		}
 	}
 	else if (m_Mode == LENGTH)
@@ -221,7 +232,18 @@ void Solve::cmp()
 		if (m_FinalLen < m_TemLen)
 		{
 			m_FinalChain.clear();
-			m_FinalChain.assign(m_TempChain.begin(), m_TempChain.end());
+			int temp_out[26] = { 0 };
+			for (int i = 0; i < temp_num; i++)
+			{
+				temp_out[m_TempChain[i][0] - 'a'] += 1;
+				m_FinalChain.push_back(m_TempChain[i]);
+
+			}
+			for (int i = 0; i < 26; i++)
+			{
+				if (out[i] == temp_out[i])
+					go[i] = 1;
+			}
 			m_FinalLen = m_TemLen;
 		}
 
@@ -284,6 +306,10 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 {
 	int i;
 	word = wordlist.getWordList();
+	for (i = 0; i < 26; i++)
+	{
+		out[i] = wordlist.getNodeOut(i);
+	}
 	m_ModeRing = is_ring;
 	for (int i = 0; i < 26; i++)
 	{
@@ -302,6 +328,7 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 	{
 		for (i = 0; i < 26; i++)
 		{
+			if (go[i] == 1) continue;
 			m_ihead[i] = 1;
 			Dfs_solve1(wordlist, 'a' + i);
 			m_ihead[i] = 0;

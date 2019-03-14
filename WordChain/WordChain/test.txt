@@ -1,4 +1,29 @@
-"ab",
-				"bccccccccccccccccccccccccccc", "bd",
-				"cd",
-				"da", "dc",
+ab
+bc
+cb
+cd
+dc
+de
+ed
+ef
+fe
+ffgg
+gf
+gh
+hg
+hc
+ch
+ci
+ic
+di
+id
+ei
+ie
+fi
+if
+gi
+ig
+hi
+ih
+dj
+jd

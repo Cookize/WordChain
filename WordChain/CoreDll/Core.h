@@ -45,6 +45,7 @@ public:
 		{
 			m_iArrayNodeIn[i] = 0;
 			m_iArryMatrix[i] = 0;
+			m_iArrayNodeOut[i] = 0;
 		}
 		for (int i = 0; i < SUM_ALPH_2 + 1; i++)
 		{
@@ -105,6 +106,11 @@ public:
 		return m_iArrayNodeIn[_index];
 	}
 
+	int getNodeOut(int _index)
+	{
+		return m_iArrayNodeIn[_index];
+	}
+
 	int getNodeNext(int _index)
 	{
 		return m_iArryMatrix[_index];
@@ -133,6 +139,7 @@ private:
 
 	int m_iArryMatrix[26] = { 0 };		// ÁÚ½Ó¾ØÕó
 	int m_iArrayNodeIn[26] = { 0 };
+	int m_iArrayNodeOut[26] = { 0 };
 
 	void addWord(const string &_word);
 };
@@ -184,6 +191,8 @@ private:
 	int next_tag[26][26] = { 0 };
 	int len_ans[26][26] = { 0 };
 	int max_dfs[26] = { 0 };
+	int go[26] = { 0 };
+	int out[26] = { 0 };
 	int final_dfs[26] = { 0 };
 	int ahead[26] = { 0 };
 	int m_FinalLen = 0;

@@ -54,6 +54,8 @@ private:
 	int next_tag[26][26] = { 0 };
 	int len_ans[26][26] = {0};
 	int max_dfs[26] = {0};
+	int go[26] = { 0 };
+	int out[26] = { 0 };
 	int final_dfs[26] = {0};
 	int ahead[26] = {0};
 	int m_FinalLen = 0;
