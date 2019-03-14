@@ -14,28 +14,17 @@ using namespace std;
 
 namespace DllTest
 {		
+	HINSTANCE CoreDLL = LoadLibrary("CoreDll.dll");
+	genChainWord gen_chain_word = (genChainWord)GetProcAddress(CoreDLL, "gen_chain_word");
+	genChainChar gen_chain_char = (genChainChar)GetProcAddress(CoreDLL, "gen_chain_char");
 	TEST_CLASS(UnitTest1)
 	{
 	public:
-
-		HINSTANCE CoreDLL = LoadLibrary("CoreDll.dll");
-		genChainWord gen_chain_word;
-		genChainChar gen_chain_char;
-
 		TEST_METHOD_INITIALIZE(init)
 		{
-			if (CoreDLL == NULL) {
-				Assert::AreEqual(1, 0);
-			}
-			genChainWord gen_chain_word = (genChainWord)GetProcAddress(CoreDLL, "gen_chain_word");
-			genChainChar gen_chain_char = (genChainChar)GetProcAddress(CoreDLL, "gen_chain_char");
-			if (gen_chain_word == NULL || gen_chain_char == NULL) {
-				Assert::AreEqual(1, 0);
-			}
 		}
 		TEST_METHOD_CLEANUP(cleanUp)
 		{
-			FreeLibrary(CoreDLL);
 		}
 		
 		TEST_METHOD(Test_1)				// -w
@@ -219,7 +208,7 @@ namespace DllTest
 				"de"
 			};
 			char* chain[100];
-			Assert::AreEqual(-2, gen_chain_word(words, 11, chain, 0, 0, false));
+			Assert::AreEqual(-4, gen_chain_word(words, 11, chain, 0, 0, false));
 		}
 
 		TEST_METHOD(Test_10)				// -c but have ring
@@ -238,7 +227,7 @@ namespace DllTest
 				"de"
 			};
 			char* chain[100];
-			Assert::AreEqual(-2, gen_chain_char(words, 11, chain, 0, 0, false));
+			Assert::AreEqual(-4, gen_chain_char(words, 11, chain, 0, 0, false));
 		}
 
 		TEST_METHOD(Test_11)				// -w have self
@@ -369,5 +358,73 @@ namespace DllTest
 			Assert::AreEqual(0, strcmp(chain[2], ans[2]));
 		}
 
+	};
+
+	TEST_CLASS(ExceptionTest1)
+	{
+	public:
+		TEST_METHOD(Test_1)
+		{
+			char* words[] = {
+				NULL,
+				NULL,
+				"ad",
+				"bc",
+				"bd",
+				"cd",
+			};
+			char* chain[100];
+			Assert::AreEqual(-3, gen_chain_word(words, 6, chain, 0, 0, false));
+		}
+
+		TEST_METHOD(Test_2)
+		{
+			char* words[] = {
+				"ab",
+				"accccccccccccccccccccc",
+				"ad",
+				"bc",
+				"bd",
+				"cd",
+			};
+			char* chain[100];
+			Assert::AreEqual(-1, gen_chain_word(words, 6, chain, '-', 0, false));
+		}
+
+		TEST_METHOD(Test_3)
+		{
+			char* words[] = {
+				"ab",
+				"accccccccccccccccccccc",
+				"ad",
+				"bc",
+				"bd",
+				"cd",
+			};
+			char* chain[100];
+			Assert::AreEqual(-2, gen_chain_word(words, 6, chain, 0, '-', false));
+		}
+
+		TEST_METHOD(Test_4)
+		{
+			char* words[] = {
+				"ab",
+				"accccccccccccccccccccc",
+				"ad",
+			};
+			char* chain[100];
+			Assert::AreEqual(-5, gen_chain_word(words, 3, chain, 0, 0, false));
+		}
+
+		TEST_METHOD(Test_6)
+		{
+			char* words[] = {
+				"ab",
+				"accccccccccccccccccccc",
+				"ad",
+			};
+			char* chain[100];
+			Assert::AreEqual(-5, gen_chain_word(words, 3, chain, 0, 0, false));
+		}
 	};
 }

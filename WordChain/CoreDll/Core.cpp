@@ -311,7 +311,7 @@ void Solve::cmp()
 {
 	if (m_Mode == NUM)
 	{
-		if (max_num <= temp_num)
+		if (max_num < temp_num)
 		{
 			max_num = temp_num;
 			m_FinalChain.clear();
@@ -332,7 +332,7 @@ void Solve::cmp()
 void Solve::Dfs_solve1(WordList& wordlist, char c)
 {
 	int i, j;
-	if (next_tag[c - 'a'][0] == -1)
+	if (next_tag[c - 'a'][0] == -1 || (m_ModeTail != '&' && m_ModeTail == c))
 	{
 		if (m_ModeTail != '&')
 		{
@@ -352,9 +352,9 @@ void Solve::Dfs_solve1(WordList& wordlist, char c)
 		int a = (c - 'a') * 26 + i;
 		if (m_iSigned[c - 'a'][i] == 1)
 		{
-			if (m_ModeTail != '&')
+			if (m_ModeTail != '&' || (m_ModeTail != '&' && m_ModeTail == c))
 			{
-				if (m_ModeTail == ('a' + i))
+				if (m_ModeTail == c)
 				{
 					cmp();
 				}
@@ -407,7 +407,6 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 			m_ihead[i] = 1;
 			Dfs_solve1(wordlist, 'a' + i);
 			m_ihead[i] = 0;
-			break;
 		}
 	}
 	else
@@ -781,11 +780,6 @@ int gen_chain_word(char* words[], int len, char* output[], char head, char tail,
 	}
 
 	int length = int(outputList->size());
-	if (length > (sizeof(output) / sizeof(char*)))
-	{
-		delete core;
-		return -7;
-	}
 
 	for (int i = 0; i < length; i++)
 	{
@@ -835,12 +829,6 @@ int gen_chain_char(char* words[], int len, char*output[], char head, char tail, 
 	}
 
 	int length = int(outputList->size());
-	if (length > (sizeof(output) / sizeof(char*)))
-	{
-		delete core;
-		return -7;
-	}
-
 	for (int i = 0; i < length; i++)
 	{
 		int len = int((*outputList)[i].length());

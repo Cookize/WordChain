@@ -209,7 +209,7 @@ void Solve::cmp()
 {
 	if (m_Mode == NUM)
 	{
-		if (max_num <= temp_num)
+		if (max_num < temp_num)
 		{
 			max_num = temp_num;
 			m_FinalChain.clear();
@@ -309,8 +309,6 @@ void Solve::Solve1(WordList& wordlist, bool is_ring, vector<string> &output)
 	}
 	else
 	{
-		cout << m_ModeHead << endl;
-		cout << m_ModeTail << endl;
 		m_ihead[m_ModeHead - 'a'] = 1;
 		Dfs_solve1(wordlist, m_ModeHead);
 		m_ihead[m_ModeHead - 'a'] = 0;
