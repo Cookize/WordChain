@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="output.txt" />
+    <Text Include="solution.txt" />
     <Text Include="test.txt" />
     <Text Include="WordList.txt" />
   </ItemGroup>
