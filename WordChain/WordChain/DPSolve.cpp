@@ -13,11 +13,11 @@ int DPSolve::DPStep(int indexH)
 		if (t_iRemaining > 0) 
 		{
 			int temp = m_cMode == 'c' ? 
-				m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length() : 1;
+				int(m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length()) : 1;
 			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
 			{
 				temp += m_cMode == 'c' ?
-					m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexH), false).length() : 1;
+					int(m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexH), false).length()) : 1;
 				continue;
 			}
 			temp += DPStep(indexT);
@@ -43,11 +43,11 @@ int DPSolve::DPStepRe(int indexT)
 		if (t_iRemaining > 0)
 		{
 			int temp = m_cMode == 'c' ?
-				m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length() : 1;
+				int(m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length()) : 1;
 			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
 			{
 				temp += m_cMode == 'c' ?
-					m_ptrWordList->getWordAt(Index2char(indexT), Index2char(indexT), false).length() : 1;
+					int(m_ptrWordList->getWordAt(Index2char(indexT), Index2char(indexT), false).length()) : 1;
 				continue;
 			}
 			temp += DPStepRe(indexH);
@@ -73,11 +73,11 @@ int DPSolve::DPStepLimited(int indexH)
 		if (t_iRemaining > 0)
 		{
 			int temp = m_cMode == 'c' ?
-				m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length() : 1;
+				int(m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexT), false).length()) : 1;
 			if (indexH == indexT && t_iRemaining == 1)	// 允许有一个首尾相同的单词
 			{
 				temp += m_cMode == 'c' ?
-					m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexH), false).length() : 1;
+					int(m_ptrWordList->getWordAt(Index2char(indexH), Index2char(indexH), false).length()) : 1;
 				continue;
 			}
 			temp += DPStep(indexT);

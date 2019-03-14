@@ -28,7 +28,7 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 				len = 2;
 			else if(m_Mode == LENGTH)
 			{
-				len = next_word.size();
+				len = int(next_word.size());
 			}
 			max_num -= len;
 			if (m_Mode == LENGTH)
@@ -38,7 +38,7 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 				{
 					if (i == id1) continue;
 					
-					int lenth_cir = wordlist.getWordAt(id1 + 'a', 'a' + i, false).size();
+					int lenth_cir = int(wordlist.getWordAt(id1 + 'a', 'a' + i, false).size());
 					
 					if (!wordlist.getWordAt(id1 + 'a', 'a' + i, false).empty() && (max_num - lenth_cir) == max_dfs[i])
 					{
@@ -63,7 +63,7 @@ void Solve::printhe(WordList& wordlist, vector<string> &output)
 				{
 					if (i == id1) continue;
 
-					int lenth_cir = wordlist.getWordAt(id1 + 'a', 'a' + i, false).size();
+					int lenth_cir = int(wordlist.getWordAt(id1 + 'a', 'a' + i, false).size());
 
 					if (!wordlist.getWordAt(id1 + 'a', 'a' + i, false).empty() && (max_num - lenth_cir) == max_dfs[i])
 					{

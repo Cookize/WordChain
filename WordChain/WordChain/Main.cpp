@@ -90,18 +90,27 @@ int main(int argc, char** argv)
 	fileIn.close();
 
 	Core *core = new Core();
+	int ret;
 	if (paraFlag[0] == 2) {
-		if (core->gen_chain_char(*lines, *chain, head, tail, paraFlag[3] == 1) != 0)
+		if ((ret = core->gen_chain_char(*lines, *chain, head, tail, paraFlag[3] == 1)) != 0)
 		{
-			cout << "ERROR!" << endl;
+			delete core;
+			if (ret == -1) cout << "ERROR:Illegal input head or tail" << endl;
+			else if (ret == -2) cout << "ERROR:Have ring" << endl;
+			else if (ret == -3)cout << "ERROR:Word chain not exist" << endl;
+			else cout << "ERROR" << endl;
 			return 0;
 		}
 	}
 	else
 	{
-		if (core->gen_chain_word(*lines, *chain, head, tail, paraFlag[3] == 1) != 0)
+		if ((ret = core->gen_chain_word(*lines, *chain, head, tail, paraFlag[3] == 1)) != 0)
 		{
-			cout << "ERROR!" << endl;
+			delete core;
+			if (ret == -1) cout << "ERROR:Illegal input head or tail" << endl;
+			else if (ret == -2) cout << "ERROR:Have ring" << endl;
+			else if (ret == -3)cout << "ERROR:Word chain not exist" << endl;
+			else cout << "ERROR" << endl;
 			return 0;
 		}
 	}
@@ -110,7 +119,7 @@ int main(int argc, char** argv)
 	
 	string addrOut("output.txt");
 	ofstream fileOut(addrOut);
-	int length = chain->size();
+	int length = int(chain->size());
 	if (!fileOut.is_open())
 	{
 		cout << "ERROR:Illegal Output File!" << endl;

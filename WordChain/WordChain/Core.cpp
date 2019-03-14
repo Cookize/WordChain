@@ -3,7 +3,6 @@
 int Core::gen_chain_word(vector<string> &words, vector<string> &output, char head, char tail, bool enable_loop)
 {
 	if (!checkChar(head) || !checkChar(tail)) return -1 ;
-
 	wordList = new WordList();
 	dpSolve = new DPSolve(wordList, 'w', head, tail);
 	int t_iLength = int(words.size());
@@ -59,14 +58,11 @@ int Core::gen_chain_char(vector<string> &words, vector<string> &output, char hea
 	if (!checkChar(head) || !checkChar(tail)) return -1;
 	wordList = new WordList();
 	dpSolve = new DPSolve(wordList, 'c', head, tail);
-
-	int t_iLength = words.size();
+	int t_iLength = int(words.size());
 	for (int i = 0; i < t_iLength; i++)
 	{
 		wordList->parseString(words[i]);
 	}
-	//wordList->showAllWord();
-	// ÅÐ¶Ï»·
 	if (!enable_loop && !dpSolve->topoSort())
 	{
 		return -2;
