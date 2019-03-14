@@ -117,7 +117,7 @@ int main(int argc, char** argv)
 	delete core;
 	core = NULL;
 	
-	string addrOut("output.txt");
+	string addrOut("solution.txt");
 	ofstream fileOut(addrOut);
 	int length = int(chain->size());
 	if (!fileOut.is_open())
