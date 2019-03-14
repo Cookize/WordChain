@@ -42,7 +42,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 0, 0, false));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 0, 0, false));
 			Assert::AreEqual(size_t(3), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -70,7 +70,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 0, 0, false));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 0, 0, false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -97,7 +97,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'b', 0, false));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 'b', 0, false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -125,7 +125,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 'b', 0, false));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 'b', 0, false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -152,7 +152,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 0, 'c', false));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 0, 'c', false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -180,7 +180,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 0, 'c', false));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 0, 'c', false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -211,7 +211,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'b', 'd', false));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 'b', 'd', false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -243,7 +243,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 'b', 'd', false));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 'b', 'd', false));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -272,7 +272,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(false, CORE->gen_chain_word(*lines, *chain, 0, 0, false));
+			Assert::AreEqual(-2, CORE->gen_chain_word(*lines, *chain, 0, 0, false));
 			delete lines;
 			delete chain;
 		}
@@ -298,7 +298,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(false, CORE->gen_chain_char(*lines, *chain, 0, 0, false));
+			Assert::AreEqual(-2, CORE->gen_chain_char(*lines, *chain, 0, 0, false));
 			delete lines;
 			delete chain;
 		}
@@ -329,7 +329,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 0, 0, false));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 0, 0, false));
 			Assert::AreEqual(size_t(7), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -367,7 +367,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 0, 0, false));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 0, 0, false));
 			Assert::AreEqual(size_t(5), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -394,7 +394,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 0, 0, true));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 0, 0, true));
 			Assert::AreEqual(size_t(4), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -420,7 +420,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 0, 0, true));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 0, 0, true));
 			Assert::AreEqual(size_t(2), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -444,7 +444,7 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_word(*lines, *chain, 'b', 'a', true));
+			Assert::AreEqual(0, CORE->gen_chain_word(*lines, *chain, 'b', 'a', true));
 			Assert::AreEqual(size_t(4), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
@@ -470,12 +470,11 @@ namespace CoreUnitTest
 			{
 				lines->push_back(words[i]);
 			}
-			Assert::AreEqual(true, CORE->gen_chain_char(*lines, *chain, 'b', 'a', true));
+			Assert::AreEqual(0, CORE->gen_chain_char(*lines, *chain, 'b', 'a', true));
 			Assert::AreEqual(size_t(3), chain->size());
 			Assert::AreEqual(ans[0], (*chain)[0]);
 			Assert::AreEqual(ans[1], (*chain)[1]);
 			Assert::AreEqual(ans[2], (*chain)[2]);
-			Assert::AreEqual(ans[3], (*chain)[3]);
 			delete lines;
 			delete chain;
 		}
